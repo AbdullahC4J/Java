@@ -5,13 +5,13 @@ This repository contains a collection of projects, coding challenges, and algori
 ## Repository Structure
 
 ### 1. **Java Basics**
-   This section includes foundational Java programs demonstrating basic syntax, control structures, exception handling, and core concepts such as variables, data types, and methods.
+   Includes foundational Java programs demonstrating basic syntax, control structures, exception handling, and core concepts such as variables, data types, and methods.
 
 ### 2. **Data Structures & Algorithms**
-   This directory contains implementations of core data structures (arrays, linked lists, trees, stacks, queues) and algorithms (sorting, searching, recursion). These are designed to strengthen algorithmic problem-solving skills.
+   Implementations of core data structures (arrays, linked lists, trees, stacks, queues) and algorithms (sorting, searching, recursion). These are designed to strengthen algorithmic problem-solving skills.
 
 ### 3. **Object-Oriented Programming (OOP)**
-   This section covers object-oriented programming principles, such as inheritance, polymorphism, encapsulation, and abstraction, through practical examples and projects.
+   Object-oriented programming principles, such as inheritance, polymorphism, encapsulation, and abstraction, through practical examples and projects.
 
 <!--
 ### 4. **Design Patterns**
