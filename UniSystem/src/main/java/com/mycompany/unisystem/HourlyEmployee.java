@@ -11,7 +11,7 @@ public class HourlyEmployee extends Employee implements PrintInfo {
     public HourlyEmployee() {
     }
 
-    public HourlyEmployee(double workHours, double salary, String job, String name, int age, Gender_t gender, String nationality, String address) {
+    public HourlyEmployee(double workHours, double salary, String job, String name, int age, Gender gender, String nationality, String address) {
         super(salary, job, name, age, gender, nationality, address);
         this.workHours = workHours;
     }

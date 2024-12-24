@@ -13,7 +13,7 @@ public class SalariedEmployee extends Employee{
 
     }
 
-    public SalariedEmployee(double bonus, double deductions, double salary, String job, String name, int age, Gender_t gender, String nationality, String address) {
+    public SalariedEmployee(double bonus, double deductions, double salary, String job, String name, int age, Gender gender, String nationality, String address) {
         super(salary, job, name, age, gender, nationality, address);
         this.bonus = bonus;
         this.deductions = deductions;

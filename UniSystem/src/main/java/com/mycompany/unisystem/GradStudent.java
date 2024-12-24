@@ -12,7 +12,7 @@ public class GradStudent extends Student implements PrintInfo {
     public GradStudent() {
     }
 
-    public GradStudent(String name, int age, Gender_t gender, String nationality, String address, int level, String specialization, double gpa, int gradYear, boolean docsDelivered) {
+    public GradStudent(String name, int age, Gender gender, String nationality, String address, int level, String specialization, double gpa, int gradYear, boolean docsDelivered) {
         super(name, age, gender, nationality, address, level, specialization, gpa);
         this.gradYear = gradYear;
         this.docsDelivered = docsDelivered;

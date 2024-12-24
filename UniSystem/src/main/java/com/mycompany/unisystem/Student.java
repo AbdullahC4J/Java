@@ -13,7 +13,7 @@ public class Student extends Person{
     public Student() {
     }
 
-    public Student(String name, int age, Gender_t gender, String nationality, String address, int level, String specialization, double gpa) {
+    public Student(String name, int age, Gender gender, String nationality, String address, int level, String specialization, double gpa) {
         super(name, age, gender, nationality, address);
         this.level = level;
         this.specialization = specialization;

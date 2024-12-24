@@ -12,7 +12,7 @@ public abstract class Employee extends Person {
     public Employee() {
     }
 
-    public Employee(double salary, String job, String name, int age, Gender_t gender, String nationality, String address) {
+    public Employee(double salary, String job, String name, int age, Gender gender, String nationality, String address) {
         super(name, age, gender, nationality, address);
         this.salary = salary;
         this.job = job;

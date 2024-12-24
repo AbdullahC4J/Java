@@ -4,7 +4,7 @@ package com.mycompany.unisystem;
  *
  * @author Abdullah Maher
  */
-enum Gender_t {
+enum Gender {
     Male, Female;
 }
 
@@ -14,7 +14,7 @@ public abstract class Person implements PrintInfo {
 
     protected String name;
     protected int age;
-    protected Gender_t gender;
+    protected Gender gender;
     protected String nationality;
     protected String address;
 
@@ -22,7 +22,7 @@ public abstract class Person implements PrintInfo {
         personsCount++;
     }
 
-    public Person(String name, int age, Gender_t gender, String nationality, String address) {
+    public Person(String name, int age, Gender gender, String nationality, String address) {
         personsCount++;
         this.name = name;
         this.age = age;
@@ -55,11 +55,11 @@ public abstract class Person implements PrintInfo {
         this.age = age;
     }
 
-    public Gender_t getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(Gender_t gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
