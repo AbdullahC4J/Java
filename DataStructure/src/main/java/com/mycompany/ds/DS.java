@@ -16,7 +16,7 @@ public class DS {
         
         arr.addLast(10);
         arr.print();
-        arr.add(10, 11);
+        arr.rightRotate(5);
         arr.print();
     }
 }

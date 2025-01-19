@@ -7,7 +7,7 @@ package com.mycompany.ds;
 public class ArrayList {
 
     private int[] arr = null;
-    private int size = 0;
+    private int size;
     private int capacity;
 
     public ArrayList() {
@@ -26,7 +26,7 @@ public class ArrayList {
     }
 
     /**
-     * Method to get element at at certain index
+     * Method to get element at certain index
      *
      * @param idx index to search for
      * @return the value stored in the index location
@@ -40,7 +40,7 @@ public class ArrayList {
     }
 
     /**
-     * Method to overwrite element at at certain index
+     * Method to overwrite element at certain index
      *
      * @param idx index to search for
      * @param val the desired value to be stored
@@ -151,6 +151,52 @@ public class ArrayList {
 
         arr[idx] = val;
         size++;
+    }
+
+    /**
+     * Method to remove certain index
+     *
+     * @param idx the desired index to be removed
+     */
+    public void remove(int idx) {
+        if (idx < 0 || idx > size) {
+            return;
+        }
+
+        for (int i = idx; i < size; i++) {
+            arr[i] = arr[i + 1];
+        }
+
+        size--;
+    }
+
+    public void rightRotate() {
+        int lastElemnet = arr[size - 1];
+
+        for (int i = size - 2; i >= 0; i--) {
+            arr[i + 1] = arr[i];
+        }
+
+        arr[0] = lastElemnet;
+    }
+
+    public void rightRotate(int rotationCount) {
+        rotationCount %= size;
+
+        while (rotationCount > 0) {
+            rightRotate();
+            rotationCount--;
+        }
+    }
+
+    public void leftRotate() {
+        int firstElemnet = arr[0];
+
+        for (int i = 1; i < size; i++) {
+            arr[i - 1] = arr[i];
+        }
+
+        arr[size - 1] = firstElemnet;
     }
 
     /**
