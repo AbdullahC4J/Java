@@ -101,13 +101,16 @@ public abstract class Product implements PrintProdInfo, Discountable {
      */
     private void setCategory(String category) {
         if (category == null || category.trim().isEmpty()) {
-
             throw new IllegalArgumentException("Category cannot be empty");
         }
-        if (!category.equals("Book") || !category.equals("Electronics") 
-        || !category.equals("Fashion") || !category.equals("SuperMarket")) {
+
+        category = category.toLowerCase();
+        if (!category.equals("book") || !category.equals("electronics") ||
+        !category.equals("fashion")|| !category.equals("supermarket")) {
+            // TODO : SOLVE THIS ISSUE 
             throw new IllegalArgumentException("Invalid Category");
         }
+
 
         this.category = category;
     }

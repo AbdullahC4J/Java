@@ -32,22 +32,13 @@ public final class Stock {
      * @throws IllegalArgumentException if the product type is invalid
      */
     public boolean addProduct(Product product) {
-        switch (product) {
-            case Book book -> {
-                return stockBookList.add(book);
-            }
-            case Electronic electronic -> {
-                return stockElectronicList.add(electronic);
-            }
-            case Fashion fashion -> {
-                return stockFashionList.add(fashion);
-            }
-            case SuperMarket superMarket -> {
-                return stockSuperMarketList.add(superMarket);
-            }
-
+        return switch (product) {
+            case Book book -> stockBookList.add(book);
+            case Electronic electronic -> stockElectronicList.add(electronic);
+            case Fashion fashion -> stockFashionList.add(fashion);
+            case SuperMarket superMarket -> stockSuperMarketList.add(superMarket);
             default -> throw new IllegalArgumentException("Invalid Product Type");
-        }
+        };
     }
 
     /**
@@ -56,14 +47,13 @@ public final class Stock {
      * @throws IllegalArgumentException if the product type is invalid
      */
     public boolean removeProduct(Product product) {
-        switch (product) {
-            case Book book -> {return stockBookList.remove(book);}
-            case Electronic electronic -> {return stockElectronicList.remove(electronic);}
-            case Fashion fashion -> {return stockFashionList.remove(fashion);}
-            case SuperMarket superMarket -> {return stockSuperMarketList.remove(superMarket);}
-
+        return switch (product) {
+            case Book book -> stockBookList.remove(book);
+            case Electronic electronic -> stockElectronicList.remove(electronic);
+            case Fashion fashion -> stockFashionList.remove(fashion);
+            case SuperMarket superMarket -> stockSuperMarketList.remove(superMarket);
             default -> throw new IllegalArgumentException("Invalid Product Type");
-        }
+        };
     }
 
     /**

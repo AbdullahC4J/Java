@@ -135,7 +135,7 @@ public final class Store {
      * Prints the total stock count.
      */ 
     public void printTotalStock(){
-        stock.getTotalStockCount();
+        System.out.println(stock.getTotalStockCount());
     }
 
     public void addProductToStock(int adminId) {
