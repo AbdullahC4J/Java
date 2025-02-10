@@ -107,7 +107,6 @@ public class Electronic extends Product {
         System.out.println("Product Type: " + productType);
         System.out.println("Price: $" + getPrice());
         System.out.println("Color: " + color);
-        System.out.println("Final Price: $" + getFinalPrice());
     }
 
     /**

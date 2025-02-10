@@ -113,7 +113,6 @@ public class Fashion extends Product {
         System.out.println("Color: " + color);
         System.out.println("Size: " + size);
         System.out.println("Price: $" + getPrice());
-        System.out.println("Final Price: $" + getFinalPrice());
     }       
 
     /**

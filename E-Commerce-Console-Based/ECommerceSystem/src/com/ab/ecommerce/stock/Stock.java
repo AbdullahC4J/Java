@@ -24,6 +24,12 @@ public final class Stock {
      * Constructs a new Stock.
      */
     public Stock() {
+
+        /* Adding default products to the stock */
+        stockBookList.add(new Book("The Algorithm Design Manual", 350.0, "Skiena"));
+        stockElectronicList.add(new Electronic("Iphone 13", 25500.0, "Apple", ElectronicProductType.SMARTPHONE, "Black"));
+        stockFashionList.add(new Fashion("Shirt", 320.0, "shirt", "navy", "Xl"));
+        stockSuperMarketList.add(new SuperMarket("Milk", 35.8,SuperMarketProductType.DAIRY));
     }
 
     /**
@@ -61,18 +67,25 @@ public final class Stock {
      * Shows the number of items in each category.
      */
     public void printStock() {      
-        System.out.println("Stock:\n" + "Books: " + stockBookList.size() + "\n" + 
-            "Electronic: " + stockElectronicList.size() + "\n" + 
-            "Fashion: " + stockFashionList.size() + "\n" + 
-            "SuperMarket: " + stockSuperMarketList.size());
+        System.out.println("Stock:\n");
+        System.out.println("Books: " + stockBookList.size() + "\n");
+        printStockBook();
+        System.out.println("Electronic: " + stockElectronicList.size() + "\n");
+        printStockElectronic();
+        System.out.println("Fashion: " + stockFashionList.size() + "\n");
+        printStockFashion();
+        System.out.println("SuperMarket: " + stockSuperMarketList.size());
+        printStockSuperMarket();
+        System.out.println("**********************************************************");
     }   
 
     /**
      * Prints detailed information for all books in stock.
      */
     public void printStockBook() {
-        for (Book book : stockBookList) {
-            book.printProductInfo();
+        for (int i = 0; i < stockBookList.size(); i++) {
+            System.out.println("Book " + i+1 + " :");
+            stockBookList.get(i).printProductInfo();
         }
     }
 
@@ -80,8 +93,9 @@ public final class Stock {
      * Prints detailed information for all electronic items in stock.
      */
     public void printStockElectronic() {
-        for (Electronic electronic : stockElectronicList) {
-            electronic.printProductInfo();
+        for (int i = 0; i < stockElectronicList.size(); i++) {
+            System.out.println("Electronic " + i+1 + " :");
+            stockElectronicList.get(i).printProductInfo();
         }
     }       
 
@@ -89,8 +103,9 @@ public final class Stock {
      * Prints detailed information for all fashion items in stock.
      */
     public void printStockFashion() {
-        for (Fashion fashion : stockFashionList) {
-            fashion.printProductInfo();
+        for (int i = 0; i < stockFashionList.size(); i++) {
+            System.out.println("Fashion " + i+1 + " :");
+            stockFashionList.get(i).printProductInfo();
         }
     }      
 
@@ -98,8 +113,9 @@ public final class Stock {
      * Prints detailed information for all supermarket items in stock.
      */
     public void printStockSuperMarket() {
-        for (SuperMarket superMarket : stockSuperMarketList) {
-            superMarket.printProductInfo();
+        for (int i = 0; i < stockSuperMarketList.size(); i++) {
+            System.out.println("SuperMarket " + i+1 + " :");
+            stockSuperMarketList.get(i).printProductInfo();
         }
     }              
     

@@ -79,16 +79,14 @@ public class Admin extends User{
      * Adds a product to the stock.
      * @param product The product to add
      */
-    public void addProductToStock(Product product) {
-         if(!getIsPasswordChecked()){
-             System.out.println("Enter" + getUserName() + "'s password: ");
-             Scanner scanner = new Scanner(System.in);
-             String password = scanner.nextLine();
-             scanner.close();
+    public void addProductToStock(Product product, Scanner scanner) {
+        if(!getIsPasswordChecked()){
+            System.out.println("Enter" + getUserName() + "'s password: ");
+            String password = scanner.nextLine();
             
-             if(verifyPassword(password)){
+            if(verifyPassword(password)){
                 setIsPasswordChecked(true);
-             } else {
+            } else {
                 System.out.println("Incorrect password");
                 return;
             }
@@ -99,18 +97,17 @@ public class Admin extends User{
         } else {
             System.out.println("The product is already in the stock");
         }
-     }
+        System.out.println("**********************************************************");
+    }
 
     /**
      * Removes a product from the stock.
      * @param product to remove from stock
      */
-    public void removeProductFromStock(Product product) {
+    public void removeProductFromStock(Product product, Scanner scanner) {
         if(!getIsPasswordChecked()){
             System.out.println("Enter Admin password: ");
-            Scanner scanner = new Scanner(System.in);
             String password = scanner.nextLine();
-            scanner.close();
             
             if(verifyPassword(password)){
                 setIsPasswordChecked(true);
@@ -125,5 +122,6 @@ public class Admin extends User{
         } else {
             System.out.println("The product is not in the stock");
         }
+        System.out.println("**********************************************************");
      }
 }

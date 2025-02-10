@@ -51,15 +51,14 @@ public class Book extends Product {
 
     /**
      * Prints detailed information about the book including
-     * title, author, price, category, cover color, and final price.
+     * title, author, price.
      */
     @Override
     public void printProductInfo() {
-        System.out.println("Book Details:");
         System.out.println("Title: " + getName());
         System.out.println("Author: " + author);
         System.out.println("Price: $" + getPrice());
-        System.out.println("Final Price: $" + getFinalPrice());
+        System.out.println("=================");
     }
 
     /**

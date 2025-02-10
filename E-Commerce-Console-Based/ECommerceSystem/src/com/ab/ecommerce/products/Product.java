@@ -4,15 +4,16 @@ package com.ab.ecommerce.products;
  * Abstract base class for all product types in the e-commerce system.
  * Implements Discountable interface for discount calculations.
  */
+@SuppressWarnings("ReassignedVariable")
 public abstract class Product implements PrintProdInfo, Discountable {
-    
+
     private String name;
     private double price;
     private String category;
 
     /**
      * Constructs a product with all required attributes.
-     * 
+     *
      * @param name     The name of the product
      * @param price    The price of the product
      * @param category The category of the product
@@ -25,25 +26,27 @@ public abstract class Product implements PrintProdInfo, Discountable {
     }
 
 
-
     /**
      * Gets the product name.
+     *
      * @return The name of the product
      */
     public String getName() {
         return name;
-    }   
+    }
 
     /**
      * Gets the product price.
+     *
      * @return The price of the product
      */
-    public double getPrice() {  
+    public double getPrice() {
         return price;
     }
 
     /**
      * Gets the product category.
+     *
      * @return The category of the product
      */
     public String getCategory() {
@@ -52,6 +55,7 @@ public abstract class Product implements PrintProdInfo, Discountable {
 
     /**
      * Sets the product name.
+     *
      * @param name The name to set
      * @throws IllegalArgumentException if the name is invalid
      */
@@ -71,6 +75,7 @@ public abstract class Product implements PrintProdInfo, Discountable {
 
     /**
      * Sets the product price.
+     *
      * @param price The price to set
      * @throws IllegalArgumentException if the price is invalid
      */
@@ -84,18 +89,20 @@ public abstract class Product implements PrintProdInfo, Discountable {
 
     /**
      * Gets the final price of the product after applying any discounts.
+     *
      * @return The final price of the product
      */
     @Override
-    public double getFinalPrice() { 
+    public double getFinalPrice() {
         if (this.price <= 0.0)
             throw new IllegalArgumentException("Invalid Price");
 
         return this.price - calculateDiscount();
-    }   
+    }
 
     /**
      * Validates the product category.
+     *
      * @param category The category to validate
      * @throws IllegalArgumentException if the category is invalid
      */
@@ -105,13 +112,12 @@ public abstract class Product implements PrintProdInfo, Discountable {
         }
 
         category = category.toLowerCase();
-        if (!category.equals("book") || !category.equals("electronics") ||
-        !category.equals("fashion")|| !category.equals("supermarket")) {
-            // TODO : SOLVE THIS ISSUE 
+        if (category.equals("book") || category.equals("electronics") ||
+                category.equals("fashion") || category.equals("supermarket")) {
+            this.category = category;
+        } else {
             throw new IllegalArgumentException("Invalid Category");
         }
-
-
-        this.category = category;
     }
+
 }
