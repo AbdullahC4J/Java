@@ -87,6 +87,9 @@ src/com/ab/ecommerce/
 
 ## Class Documentation
 
+### UML Diagram
+![alt text](https://github.com/AbdullahC4J/Java/blob/main/E-Commerce-Console-Based/UML/UML.png)
+
 ### Product Classes
 - `Product`: Abstract base class for all products
 - `Book`: Represents book products with author information
@@ -118,7 +121,7 @@ Different discount rates apply based on product category:
 - Supermarket: 10-40% based on type
 
 ## Authors
-- Your Name (@AbdullahC4J)
+- AbdullahC4J
 
 <!-- ## Future Improvements
 - [ ] Implement payment gateway integration
