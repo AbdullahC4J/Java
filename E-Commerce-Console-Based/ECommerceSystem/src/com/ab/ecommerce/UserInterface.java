@@ -10,8 +10,6 @@ public class UserInterface {
     /** The scanner of the user interface */
     private final Scanner scanner = new Scanner(System.in);
 
-    public UserInterface(){
-    }
 
     public void showMainPage(){
         System.out.println("**********************************************************");
@@ -30,7 +28,9 @@ public class UserInterface {
                 showCustomerPage();
                 break;
             case 3:
+                scanner.close();
                 System.exit(0);
+                break;
         }
         showMainPage();
     }
@@ -138,7 +138,11 @@ public class UserInterface {
     }
 
     public void showCustomerSignUpPage(){
-        System.out.println("Sign Up New Customer");
+        System.out.println("""
+                **********************
+                Sign Up New Customer
+                **********************
+                """);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
         System.out.println("Enter your password: ");
@@ -149,13 +153,17 @@ public class UserInterface {
         String address = scanner.nextLine();
 
         Customer customer = store.addNewCustomer(username, password, phoneNumber, address);
-        System.out.println("Customer signed up successfully");
+        System.out.println("Customer signed up successfully\n");
         System.out.println("**********************************************************");
         showCustomerOperation(customer);
     }
 
     public void showCustomerLoginPage(){
-        System.out.println("Login as Customer");
+        System.out.println("""
+                ******************
+                Login as Customer
+                ******************
+                """);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
         System.out.println("Enter your password: ");
@@ -170,39 +178,46 @@ public class UserInterface {
     }
 
     public void showCustomerOperation(Customer customer){
-        System.out.println("Customer " + customer.getUserName() + " Operations\n");
-        System.out.println("all items in stock");
+        System.out.println("************************************************");
+        System.out.println("Customer" + customer.getUserName() + "Operations");
+        System.out.println("************************************************");
         store.printStock();
 
         System.out.println("1. Add Product To Cart");
         System.out.println("2. Remove Product From Cart");
-        System.out.println("7. Checkout");
-        System.out.println("8. Exit");
+        System.out.println("3. Show Products in The Cart");
+        System.out.println("4. Checkout");
+        System.out.println("5. Exit");
 
         int choice = scanner.nextInt();
         scanner.nextLine(); // consume newline
 
         switch (choice) {
             case 1 -> {
-                System.out.println("Enter Product Category");
+                System.out.println("Enter Product Category: electronic | book | fashion | supermarket\n");
                 String category = scanner.nextLine();
-                System.out.println("Enter Product Name");
-                String name = scanner.nextLine();
-                customer.addProductToCart(store.findProduct(category,name));
+                System.out.println("Enter Product Number : ");
+                int index = scanner.nextInt();
+                scanner.nextLine(); // consume newline
+                customer.addProductToCart(store.findProduct(category,index));
                 showCustomerOperation(customer);
             }
             case 2 -> {
-                System.out.println("Enter Product Category");
+                System.out.println("Enter Product Category: electronic | book | fashion | supermarket\n");
                 String category = scanner.nextLine();
-                System.out.println("Enter Product Name");
-                String name = scanner.nextLine();
-                customer.removeProductFromCart(store.findProduct(category,name));
+                System.out.println("Enter Product Number : ");
+                int index = scanner.nextInt();
+                scanner.nextLine(); // consume newline
+                customer.removeProductFromCart(store.findProduct(category,index));
                 showCustomerOperation(customer);
             }
-            case 3 -> customer.checkout();
-
-            default -> {
+            case 3 -> {
+                customer.printCustomerCart();
+                showCustomerOperation(customer);
             }
+            case 4 -> customer.checkout(scanner);
+
+            default -> {}
         }
     }
 }

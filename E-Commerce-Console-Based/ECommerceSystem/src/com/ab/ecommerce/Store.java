@@ -208,9 +208,10 @@ public final class Store {
 
         System.out.println("Enter Product Category: electronic | book | fashion | supermarket");
         String category = scanner.nextLine();
-        System.out.println("Enter Product Name:");
-        String name = scanner.nextLine();
-        admin.removeProductFromStock(stock.getProduct(category,name), scanner);
+        System.out.println("Enter Product Index: ");
+        int index = scanner.nextInt();
+        scanner.nextLine();
+        admin.removeProductFromStock(stock.getProduct(category,index), scanner);
     }
 
     /**
@@ -252,7 +253,7 @@ public final class Store {
         return null;
     }
 
-    public Product findProduct(String category, String name){
-        return stock.getProduct(category,name);
+    public Product findProduct(String category, int index){
+        return stock.getProduct(category,index);
     }
 }

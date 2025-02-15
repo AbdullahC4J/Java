@@ -47,10 +47,11 @@ public class SuperMarket extends Product {
      */
     @Override   
     public void printProductInfo() {
-        System.out.println("/nSuperMarket Product Info");
+        System.out.println("--------------------------------");
         System.out.println("Name: " + getName());
         System.out.println("Price: $" + getPrice());
         System.out.println("Product Type: " + smProductType);
+        System.out.println("--------------------------------\n");
     }
 
     /**

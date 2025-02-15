@@ -107,12 +107,13 @@ public class Fashion extends Product {
      */
     @Override
     public void printProductInfo() {
-        System.out.println("Fashion Details:"); 
+        System.out.println("--------------------------------");
         System.out.println("Name: " + getName());
         System.out.println("Fashion Type: " + fashionType);
         System.out.println("Color: " + color);
         System.out.println("Size: " + size);
         System.out.println("Price: $" + getPrice());
+        System.out.println("--------------------------------\n");
     }       
 
     /**

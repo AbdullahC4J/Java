@@ -27,6 +27,7 @@ public final class Stock {
 
         /* Adding default products to the stock */
         stockBookList.add(new Book("The Algorithm Design Manual", 350.0, "Skiena"));
+        stockBookList.add(new Book("Java The Complete Reference", 1250.0, "Oracle"));
         stockElectronicList.add(new Electronic("Iphone 13", 25500.0, "Apple", ElectronicProductType.SMARTPHONE, "Black"));
         stockFashionList.add(new Fashion("Shirt", 320.0, "shirt", "navy", "Xl"));
         stockSuperMarketList.add(new SuperMarket("Milk", 35.8,SuperMarketProductType.DAIRY));
@@ -67,14 +68,17 @@ public final class Stock {
      * Shows the number of items in each category.
      */
     public void printStock() {      
-        System.out.println("Stock:\n");
-        System.out.println("Books: " + stockBookList.size() + "\n");
+        System.out.println("\n\n============ Stock ============\n");
+        System.out.println("Number of Books in Stock: " + stockBookList.size() + "\n");
         printStockBook();
-        System.out.println("Electronic: " + stockElectronicList.size() + "\n");
+        System.out.println("=============================\n");
+        System.out.println("Number of Electronic in Stock: " + stockElectronicList.size() + "\n");
         printStockElectronic();
-        System.out.println("Fashion: " + stockFashionList.size() + "\n");
+        System.out.println("=============================\n");
+        System.out.println("Number of Fashion in Stock: " + stockFashionList.size() + "\n");
         printStockFashion();
-        System.out.println("SuperMarket: " + stockSuperMarketList.size());
+        System.out.println("=============================\n");
+        System.out.println("Number of SuperMarket in Stock: " + stockSuperMarketList.size() + "\n");
         printStockSuperMarket();
         System.out.println("**********************************************************");
     }   
@@ -84,7 +88,7 @@ public final class Stock {
      */
     public void printStockBook() {
         for (int i = 0; i < stockBookList.size(); i++) {
-            System.out.println("Book " + i+1 + " :");
+            System.out.println("Book " + (i+1) + " :");
             stockBookList.get(i).printProductInfo();
         }
     }
@@ -94,7 +98,7 @@ public final class Stock {
      */
     public void printStockElectronic() {
         for (int i = 0; i < stockElectronicList.size(); i++) {
-            System.out.println("Electronic " + i+1 + " :");
+            System.out.println("Electronic " + (i+1) + " :");
             stockElectronicList.get(i).printProductInfo();
         }
     }       
@@ -104,7 +108,7 @@ public final class Stock {
      */
     public void printStockFashion() {
         for (int i = 0; i < stockFashionList.size(); i++) {
-            System.out.println("Fashion " + i+1 + " :");
+            System.out.println("Fashion " + (i+1) + " :");
             stockFashionList.get(i).printProductInfo();
         }
     }      
@@ -114,7 +118,7 @@ public final class Stock {
      */
     public void printStockSuperMarket() {
         for (int i = 0; i < stockSuperMarketList.size(); i++) {
-            System.out.println("SuperMarket " + i+1 + " :");
+            System.out.println("SuperMarket " + (i+1) + " :");
             stockSuperMarketList.get(i).printProductInfo();
         }
     }              
@@ -163,19 +167,17 @@ public final class Stock {
     /**
      * Get a product from the stock list based on its type.
      * @param category The product category to retrieve from stock
-     * @param name The product name to retrieve from stock
+     * @param index The product index to retrieve from stock
      * @return Product from the stock
      * @throws IllegalArgumentException if the product type is invalid
      */
-    public Product getProduct(String category, String name) {
-        switch (category.toLowerCase()) {
-            case "book" -> {for(Book b : stockBookList) if(name.equals(b.getName())) return b;}
-            case "electronic" -> {for(Electronic e : stockElectronicList) if(name.equals(e.getName())) return e;}
-            case "fashion" -> {for(Fashion f : stockFashionList) if(name.equals(f.getName())) return f;}
-            case "supermarket" -> {for(SuperMarket s : stockSuperMarketList) if(name.equals(s.getName())) return s;}
+    public Product getProduct(String category, int index) {
+        return switch (category.toLowerCase()) {
+            case "book" -> stockBookList.get(index - 1);
+            case "electronic" -> stockElectronicList.get(index - 1);
+            case "fashion" -> stockFashionList.get(index - 1);
+            case "supermarket" -> stockSuperMarketList.get(index - 1);
             default -> throw new IllegalArgumentException("Invalid Product Type");
-        }
-
-        return null;
+        };
     }
 }

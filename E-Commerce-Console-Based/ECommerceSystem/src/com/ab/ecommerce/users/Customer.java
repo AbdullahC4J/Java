@@ -128,12 +128,10 @@ public class Customer extends User{
      * Checks cart contents, displays bill,
      * and completes the purchase.
      */
-    public void checkout() {
+    public void checkout(Scanner scanner) {
         if(!getIsPasswordChecked()) {
-            System.out.println("Enter" + getUserName() + "s password: ");
-            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter " + getUserName() + "'s password: ");
             String password = scanner.nextLine();
-            scanner.close();
 
             if (verifyPassword(password)) {
                 setIsPasswordChecked(true);
@@ -154,5 +152,12 @@ public class Customer extends User{
         customerBill.printBill();
         System.out.println("Thank you for shopping with us!");
         customerCart.clear();
+    }
+
+    /**
+     * Prints the customer's shopping cart.
+     */
+    public void printCustomerCart(){
+        customerCart.printCart();
     }
 }

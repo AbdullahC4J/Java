@@ -55,10 +55,11 @@ public class Book extends Product {
      */
     @Override
     public void printProductInfo() {
+        System.out.println("--------------------------------");
         System.out.println("Title: " + getName());
         System.out.println("Author: " + author);
         System.out.println("Price: $" + getPrice());
-        System.out.println("=================");
+        System.out.println("--------------------------------\n");
     }
 
     /**

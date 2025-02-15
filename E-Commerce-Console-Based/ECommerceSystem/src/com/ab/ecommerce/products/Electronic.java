@@ -101,12 +101,13 @@ public class Electronic extends Product {
      */
     @Override
     public void printProductInfo() {
-        System.out.println("Electronic Details:");
+        System.out.println("--------------------------------");
         System.out.println("Name: " + getName());
         System.out.println("Brand: " + brand);
         System.out.println("Product Type: " + productType);
         System.out.println("Price: $" + getPrice());
         System.out.println("Color: " + color);
+        System.out.println("--------------------------------\n");
     }
 
     /**
