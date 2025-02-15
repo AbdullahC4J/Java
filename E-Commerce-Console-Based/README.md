@@ -85,7 +85,7 @@ src/com/ab/ecommerce/
 5. View cart
 6. Checkout
 
-## 📚 Class Documentation
+## Class Documentation
 
 ### Product Classes
 - `Product`: Abstract base class for all products
@@ -117,7 +117,7 @@ Different discount rates apply based on product category:
 - Fashion: 30% discount
 - Supermarket: 10-40% based on type
 
-## 👥 Authors
+## Authors
 - Your Name (@AbdullahC4J)
 
 <!-- ## Future Improvements
