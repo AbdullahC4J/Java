@@ -77,6 +77,8 @@ src/com/ab/ecommerce/
    - View stock levels
 3. View product categories
 
+![alt text](https://github.com/AbdullahC4J/Java/blob/main/E-Commerce-Console-Based/Images/ECC.png) ![alt text](https://github.com/AbdullahC4J/Java/blob/main/E-Commerce-Console-Based/Images/ECC(2).png)
+
 ### Customer Operations
 1. Sign up/Login as customer
 2. Browse products
@@ -84,6 +86,8 @@ src/com/ab/ecommerce/
 4. Remove items from cart
 5. View cart
 6. Checkout
+
+![alt text](https://github.com/AbdullahC4J/Java/blob/main/E-Commerce-Console-Based/Images/ECC%20(4).png) ![alt text](https://github.com/AbdullahC4J/Java/blob/main/E-Commerce-Console-Based/Images/ECC%20(6).png)
 
 ## Class Documentation
 
