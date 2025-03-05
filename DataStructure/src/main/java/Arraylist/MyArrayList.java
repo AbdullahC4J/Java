@@ -1,4 +1,4 @@
-package MyArrayList;
+package Arraylist;
 
 import java.util.Arrays;
 
@@ -7,13 +7,13 @@ import java.util.Arrays;
  * This implementation provides dynamic resizing, element insertion/deletion,
  * and basic array operations.
  */
-public class MyArrayList {
+public class MyArrayList <T> {
     // The number of elements currently in the array
     private int size;
     // The total space available in the array
     private int capacity;
     // Internal array to store elements
-    private int[] arr;
+    private Object[] arr;
 
     /**
      * Default constructor creates an ArrayList with initial capacity of 10
@@ -21,7 +21,7 @@ public class MyArrayList {
     public MyArrayList() {
         size = 0;
         capacity = 10;
-        arr = new int[capacity];
+        arr = new Object[capacity];
     }
 
     /**
@@ -32,7 +32,7 @@ public class MyArrayList {
     public MyArrayList(int size) {
         this.size = 0;
         capacity = size + 10;
-        arr = new int[capacity];
+        arr = new Object[capacity];
     }
 
     /**
@@ -41,11 +41,11 @@ public class MyArrayList {
      * @param index Position to get element from
      * @return Element at given index
      */
-    public int get(int index) {
+    public T get(int index) {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException("Index out of bounds");
 
-        return arr[index];
+        return (T) arr[index];
     }
 
     /**
@@ -53,8 +53,8 @@ public class MyArrayList {
      *
      * @return The first element
      */
-    public int getFirst() {
-        return arr[0];
+    public T getFirst() {
+        return (T) arr[0];
     }
 
     /**
@@ -62,8 +62,8 @@ public class MyArrayList {
      *
      * @return The last element
      */
-    public int getLast() {
-        return arr[size - 1];
+    public T getLast() {
+        return (T) arr[size - 1];
     }
 
     /**
@@ -81,7 +81,7 @@ public class MyArrayList {
      * @param index   Position to insert at
      * @param element Value to insert
      */
-    public void add(int index, int element) {
+    public void add(int index, T element) {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException("Index out of bounds");
 
@@ -100,7 +100,7 @@ public class MyArrayList {
      *
      * @param element Value to insert
      */
-    public void add(int element) {
+    public void add(T element) {
         add(size, element);
     }
 
@@ -109,7 +109,7 @@ public class MyArrayList {
      *
      * @param element Value to insert at the start
      */
-    public void addFirst(int element) {
+    public void addFirst(T element) {
         add(0, element);
     }
 
@@ -118,7 +118,7 @@ public class MyArrayList {
      *
      * @param element Value to append
      */
-    public void addLast(int element) {
+    public void addLast(T element) {
         if (size == capacity)
             expandCapacity();
 
@@ -131,11 +131,11 @@ public class MyArrayList {
      * @param index Position to remove from
      * @return The removed element
      */
-    public int remove(int index) {
+    public T remove(int index) {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException("Index out of bounds");
 
-        int val = arr[index];
+        T val = (T) arr[index];
         for (int i = index; i < size; i++) {
             arr[i] = arr[i + 1];
         }
@@ -144,9 +144,9 @@ public class MyArrayList {
         return val;
     }
 
-    public int binarySearch(int element) {
+    public int linearSearch(T element) {
         for (int i = 0; i < size; i++)
-            if (arr[i] == element)
+            if (arr[i].equals(element))
                 return i;
 
         return -1;
@@ -166,11 +166,11 @@ public class MyArrayList {
      * @param rot Number of positions to rotate right
      */
     public void rightRotate(int rot) {
-        int lastElement;
+        T lastElement;
         rot %= size; // as a rotating number greater than the size will return to the original arrangement.
 
         while (rot > 0) {
-            lastElement = arr[size - 1];
+            lastElement = (T) arr[size - 1];
             for (int i = size; i > 0; i--)
                 arr[i] = arr[i - 1];
 
@@ -185,11 +185,11 @@ public class MyArrayList {
      * @param rot Number of positions to rotate left
      */
     public void leftRotate(int rot) {
-        int firstElement;
+        T firstElement;
         rot %= size; // as a rotating number greater than the size will return to the original arrangement.
 
         while (rot > 0) {
-            firstElement = arr[0];
+            firstElement = (T) arr[0];
             for (int i = 0; i < size; i++)
                 arr[i] = arr[i + 1];
 
@@ -203,7 +203,7 @@ public class MyArrayList {
      */
     private void expandCapacity() {
         capacity *= 2;
-        int[] newArr = new int[capacity];
+        Object[] newArr = new Object[capacity];
         if (size >= 0) System.arraycopy(arr, 0, newArr, 0, size);
         arr = newArr;
     }
