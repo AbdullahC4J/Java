@@ -1,4 +1,4 @@
-package Arraylist;
+package arraylist;
 
 import java.util.Arrays;
 
@@ -144,6 +144,20 @@ public class MyArrayList <T> {
         return val;
     }
 
+    /*
+     * Removes the all elements of the ArrayList
+     */
+    public void clear(){
+        size = 0;
+        capacity = 10;
+        arr = new Object[capacity];
+    }
+
+    /**
+     * Search for the element in the ArrayList
+     *
+     * @return The index of the element
+     */
     public int linearSearch(T element) {
         for (int i = 0; i < size; i++)
             if (arr[i].equals(element))
@@ -166,6 +180,9 @@ public class MyArrayList <T> {
      * @param rot Number of positions to rotate right
      */
     public void rightRotate(int rot) {
+        if (size == 0)
+            return;
+
         T lastElement;
         rot %= size; // as a rotating number greater than the size will return to the original arrangement.
 
@@ -185,6 +202,9 @@ public class MyArrayList <T> {
      * @param rot Number of positions to rotate left
      */
     public void leftRotate(int rot) {
+        if (size == 0)
+            return;
+
         T firstElement;
         rot %= size; // as a rotating number greater than the size will return to the original arrangement.
 
