@@ -13,5 +13,6 @@ public class TestArrayList {
         System.out.println(myObj1);
         myObj1.leftRotate(2);
         System.out.println(myObj1);
+        System.out.println(myObj1.remove(3));
     }
 }

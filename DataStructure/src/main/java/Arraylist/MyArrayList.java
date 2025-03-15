@@ -15,7 +15,7 @@ public class MyArrayList <T> {
     // Internal array to store elements
     private Object[] arr;
 
-    /**
+    /*
      * Default constructor creates an ArrayList with initial capacity of 10
      */
     public MyArrayList() {
@@ -24,7 +24,7 @@ public class MyArrayList <T> {
         arr = new Object[capacity];
     }
 
-    /**
+    /*
      * Constructor that creates an ArrayList with specified initial size
      *
      * @param size Initial size of the ArrayList
@@ -35,20 +35,20 @@ public class MyArrayList <T> {
         arr = new Object[capacity];
     }
 
-    /**
+    /*
      * Retrieves element at specified index
      *
      * @param index Position to get element from
      * @return Element at given index
      */
     public T get(int index) {
-        if (index > size || index < 0)
+        if (index >= size || index < 0)
             throw new ArrayIndexOutOfBoundsException("Index out of bounds");
 
         return (T) arr[index];
     }
 
-    /**
+    /*
      * Returns the first element in the ArrayList
      *
      * @return The first element
@@ -57,7 +57,7 @@ public class MyArrayList <T> {
         return (T) arr[0];
     }
 
-    /**
+    /*
      * Returns the last element in the ArrayList
      *
      * @return The last element
@@ -66,7 +66,7 @@ public class MyArrayList <T> {
         return (T) arr[size - 1];
     }
 
-    /**
+    /*
      * Returns the current number of elements in the ArrayList
      *
      * @return The size of ArrayList
@@ -75,7 +75,7 @@ public class MyArrayList <T> {
         return size;
     }
 
-    /**
+    /*
      * Inserts element at specified index, shifting existing elements right
      *
      * @param index   Position to insert at
@@ -95,8 +95,8 @@ public class MyArrayList <T> {
         size++;
     }
 
-    /**
-     * Inserts element at specified index, shifting existing elements right
+    /*
+     * Inserts element at last index, shifting existing elements right
      *
      * @param element Value to insert
      */
@@ -104,7 +104,7 @@ public class MyArrayList <T> {
         add(size, element);
     }
 
-    /**
+    /*
      * Adds an element at the beginning of the ArrayList
      *
      * @param element Value to insert at the start
@@ -113,7 +113,7 @@ public class MyArrayList <T> {
         add(0, element);
     }
 
-    /**
+    /*
      * Adds an element at the end of the ArrayList
      *
      * @param element Value to append
@@ -125,14 +125,14 @@ public class MyArrayList <T> {
         arr[size++] = element;
     }
 
-    /**
+    /*
      * Removes element at specified index and shifts remaining elements left
      *
      * @param index Position to remove from
      * @return The removed element
      */
     public T remove(int index) {
-        if (index > size || index < 0)
+        if (index >= size || index < 0)
             throw new ArrayIndexOutOfBoundsException("Index out of bounds");
 
         T val = (T) arr[index];
@@ -153,7 +153,7 @@ public class MyArrayList <T> {
         arr = new Object[capacity];
     }
 
-    /**
+    /*
      * Search for the element in the ArrayList
      *
      * @return The index of the element
@@ -174,7 +174,7 @@ public class MyArrayList <T> {
         return null;
     }
 
-    /**
+    /*
      * Rotates the elements in the ArrayList to the right by specified positions
      *
      * @param rot Number of positions to rotate right
@@ -196,7 +196,7 @@ public class MyArrayList <T> {
         }
     }
 
-    /**
+    /*
      * Rotates the elements in the ArrayList to the left by specified positions
      *
      * @param rot Number of positions to rotate left
@@ -218,7 +218,7 @@ public class MyArrayList <T> {
         }
     }
 
-    /**
+    /*
      * Doubles the capacity of the array when it becomes full
      */
     private void expandCapacity() {
