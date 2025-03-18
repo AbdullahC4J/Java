@@ -1,24 +1,27 @@
 package linkedlist.singlelinkedlist;
 
-import java.util.LinkedList;
-
 public class TestLinkedList {
     public static void main(String[] args) {
-        LinkedList<Integer> ob = new LinkedList<>();
-        SingleLinkedList<String> ob1 = new SingleLinkedList<>();
-        SingleLinkedListNoTail ob2 = new SingleLinkedListNoTail();
+        SingleLinkedList<Integer> ob = new SingleLinkedList<>();
+        SingleLinkedList<Integer> ob1 = new SingleLinkedList<>();
 
-        ob1.addLast("ABDULLAH");
-        ob1.addLast("ALI");
-        ob1.addLast("NOAH");
-        ob1.addLast("AHMED");
-        ob1.addLast("HADI");
-        ob1.addLast("TAREK");
+        ob.addLast(1);
+        ob.addLast(2);
+        ob.addLast(3);
+        ob.addLast(4);
+        ob.addLast(5);
+
+        ob1.addLast(5);
+        ob1.addLast(4);
+        ob1.addLast(3);
+        ob1.addLast(2);
+        ob1.addLast(1);
+
+        System.out.println(ob);
         System.out.println(ob1);
-        ob1.reverse();
-        System.out.println(ob1);
+        System.out.println(ob);
 
         System.out.println();
-        ob1.debugPrintAll();
+        ob.debugPrintAll();
     }
 }

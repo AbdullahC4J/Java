@@ -7,7 +7,7 @@ package linkedlist.singlelinkedlist;
  * The implementation maintains both first (head) and last (tail) pointers for efficient
  * operations at both ends of the list, and a size counter for O(1) size queries.
  */
-public class SingleLinkedList <E> {
+public class SingleLinkedList<E> {
     // Pointer to first node.
     private Node<E> first;
     // Pointer to last node.
@@ -89,11 +89,11 @@ public class SingleLinkedList <E> {
     }
 
     /**
-     * Removes the element of an index
+     * Removes the node of an index
      *
      * @param index to the element to remove.
-     *                Time Complexity: O(n) - May need to traverse the entire list to find the element
-     *                Space Complexity: O(1) - No additional space needed
+     *              Time Complexity: O(n) - May need to traverse the entire list to find the element
+     *              Space Complexity: O(1) - No additional space needed
      */
     public void remove(int index) {
         if (index >= size || index < 0)
@@ -104,7 +104,7 @@ public class SingleLinkedList <E> {
             return;
         }
 
-        if ((size-1) == index) {       // To update last pointer
+        if ((size - 1) == index) {       // To update last pointer
             removeLast();
             return;
         }
@@ -161,7 +161,13 @@ public class SingleLinkedList <E> {
      */
     public boolean removeFirst() {
         if (first == null) return false;
-        first = first.next;
+        
+        if (first == last) {
+            first = last = null; 
+        }else{
+            first = first.next;
+        }
+
         size--;
         return true;
     }
@@ -173,13 +179,17 @@ public class SingleLinkedList <E> {
      */
     public boolean removeLast() {
         if (first == null || last == null) return false;
-
-        Node<E> prev = first;
-        while (prev.next != last)
-            prev = prev.next;
-
-        last = prev;
-        last.next = null;
+        
+        if (first == last) {
+            first = last = null; 
+        }else{
+            Node<E> prev = first;
+            while (prev.next != last)
+                prev = prev.next;
+    
+            last = prev;
+            last.next = null;
+        }
         size--;
         return true;
     }
@@ -191,7 +201,7 @@ public class SingleLinkedList <E> {
      */
     public Boolean removeAll() {
         Node<E> temp;
-        while (first != null){
+        while (first != null) {
             temp = first;
             first = first.next;
             temp.next = null;
@@ -266,7 +276,7 @@ public class SingleLinkedList <E> {
      * Space Complexity: O(1) - No extra memory used beyond temporary variables
      */
     public void reverse() {
-        if (first == last)
+        if (first == null || last == null)
             return;
 
         Node<E> curr = first;
@@ -291,7 +301,7 @@ public class SingleLinkedList <E> {
      * Time Complexity: O(n) - May need to traverse the entire list
      * Space Complexity: O(1) - No additional space needed
      */
-    public int linearSearch(int element) {
+    public int linearSearch(E element) {
         Node<E> curr = first;
         for (int i = 0; curr != null; i++) {
             if (curr.data.equals(element))
@@ -317,7 +327,7 @@ public class SingleLinkedList <E> {
         Node<E> curr1 = this.first;
         Node<E> curr2 = secList.first;
         while (curr1 != null && curr2 != null) {
-            if (curr1.data.equals(curr2.data))
+            if (!curr1.data.equals(curr2.data))
                 return false;
 
             curr1 = curr1.next;
@@ -374,7 +384,7 @@ public class SingleLinkedList <E> {
      * Time Complexity: O(1) for all operations
      * Space Complexity: O(1) per node instance
      */
-    private static class Node <E> {
+    private static class Node<E> {
         private E data;
         private Node<E> next;
 
@@ -384,46 +394,80 @@ public class SingleLinkedList <E> {
         }
     }
 
+    /**
+     * Removes node
+     *
+     * @param node to be removed.
+     *              Time Complexity: O(n) - May need to traverse the entire list to find the element
+     *              Space Complexity: O(1) - No additional space needed
+     */
+    private void remove(Node <E> node) {
+        if (node == null || first == null || last == null) return;
+
+        if (first == node) {       // To update first pointer
+            removeFirst();
+            return;
+        }
+
+        if (last == node) {       // To update last pointer
+            removeLast();
+            return;
+        }
+
+        Node<E> curr = first.next;
+        Node<E> prev = first;
+        while (curr != null){
+            if(curr == node){
+                prev.next = curr.next;
+                size--;
+                return;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        verifyIntegrity();
+    }
+
     /*************************************************************************************************************/
     /*******************************************     Assignments     *********************************************/
     /*************************************************************************************************************/
 
-//    /**
-//     * Adds an element to the LinkedList with keeping it sorted
-//     *
-//     * @param element Value to insert
-//     *                Time Complexity: O(n) - May need to traverse the entire list to insert the element
-//     *                Space Complexity: O(1) - Only creates one new node
-//     */
-//    public void addSorted(int element) {
-//        if (first == null || element <= first.data) { // if the LinkedList is empty or Insert at if small
-//            addFirst(element);
-//        } else if (last.data <= element) { // Insert at last
-//            addLast(element);
-//        } else {
-//            Node curr = first;
-//
-//            while (curr.next != null && curr.next.data < element)
-//                curr = curr.next;
-//
-//            curr.next = new Node(element, curr.next);
-//
-//            if (curr.next.next == null) // Update Last if the newNode is the last one
-//                last = curr.next;
-//
-//            size++;
-//        }
-//        verifyIntegrity();
-//    }
+    /**
+     * Adds a numeric element to the LinkedList with keeping it sorted
+     *
+     * @param element Value to insert
+     *                Time Complexity: O(n) - May need to traverse the entire list to insert the element
+     *                Space Complexity: O(1) - Only creates one new node
+     *                Don't use it
+     */
+    public <T extends Number & Comparable<T>> void addSorted(T element) {
+        if (first == null || element.compareTo((T) first.data) <= 0) { // if the LinkedList is empty or Insert at if small
+            addFirst((E) element);
+        } else if (element.compareTo((T) last.data) >= 0) { // Insert at last
+            addLast((E) element);
+        } else {
+            Node<E> curr = first;
+            while (curr.next != null && element.compareTo((T) curr.next.data) > 0)
+                curr = curr.next;
+
+            curr.next = new Node<>((E) element, curr.next);
+
+            if (curr.next.next == null) // Update Last if the newNode is the last one
+                last = curr.next;
+
+            size++;
+        }
+        verifyIntegrity();
+    }
 
     /**
-     * Removes all nodes at even positions (0-indexed) from the LinkedList.
+     * Removes all nodes at even positions from the LinkedList.
      * For example, in list [1,2,3,4], nodes with values 2 and 4 will be removed.
      * Time Complexity: O(n) - Traverses the list once
      * Space Complexity: O(1) - No additional space needed
      */
     public void removeEvenPos() {
-        if (first == last || first == null)
+        if (first == null || last == null)
             return;
 
         Node<E> curr = first;
@@ -448,7 +492,7 @@ public class SingleLinkedList <E> {
      * Space Complexity: O(1) - Uses only temporary variables
      */
     public void swapFirstLastNode() {
-        if (first == last || first == null)
+        if (first == null || last == null || first == last)
             return;
 
         Node<E> curr = last;
@@ -475,21 +519,19 @@ public class SingleLinkedList <E> {
      * Space Complexity: O(1) - Uses only temporary variables
      */
     public void swapPairs() {
-        if (first == last || first == null)
-            return;
+        if (first == null || last == null) return;
 
         Node<E> curr = first;
 
         while (curr != null && curr.next != null) {
-                E temp = curr.data;
-                curr.data = curr.next.data;
-                curr.next.data = temp;
+            E temp = curr.data;
+            curr.data = curr.next.data;
+            curr.next.data = temp;
 
             curr = curr.next.next;
         }
         verifyIntegrity();
     }
-
 
     /**
      * Retrieves element at specified position in forward (1-indexed)
@@ -534,21 +576,20 @@ public class SingleLinkedList <E> {
     /**
      * Rotates the LinkedList to the left by the specified number of positions.
      * For example, rotating [1,2,3,4,5] by 2 results in [3,4,5,1,2].
-     * 
+     *
      * @param rot The number of positions to rotate left
-     * Time Complexity: O(n) - Requires traversal to find new last node
-     * Space Complexity: O(1) - No additional space needed
+     *            Time Complexity: O(n) - Requires traversal to find new last node
+     *            Space Complexity: O(1) - No additional space needed
      */
     public void leftRotate(int rot) {
-        if (first == last || rot % size == 0)
+        if (first == null || last == null || first == last || rot % size == 0)
             return;
 
         rot %= size; // as a rotating number greater than the size will return to the original arrangement.
 
         Node<E> curr = first;
         int revCurr = size - rot;
-
-        while(--revCurr > 0){
+        while (--revCurr > 0) {
             curr = curr.next;
         }
 
@@ -564,22 +605,8 @@ public class SingleLinkedList <E> {
 //            last.next = null;
 //            rot--;
 //        }
-
         verifyIntegrity();
     }
-
-    /*
-      Alternative implementation using two pointers algorithm:
-      Node curr = first;
-      Node prev = first;
-
-      while (curr != null){
-          if(--nth < 0)
-              prev = prev.next;
-
-          curr = curr.next;
-      }
-     */
 
     /**
      * Prints all elements of the LinkedList in reverse order
@@ -595,15 +622,149 @@ public class SingleLinkedList <E> {
         }
         System.out.println("]");
     }
+    /*
+    Alternative implementation using two pointers algorithm:
+    Node curr = first;
+    Node prev = first;
+
+      while (curr != null){
+        if(--nth < 0)
+            prev = prev.next;
+
+        curr = curr.next;
+    }
+     */
+
+    /**
+     * Removes the last occurrence of the specified element from the LinkedList.
+     * If the element appears multiple times, only the last occurrence is removed.
+     *
+     * @param element The element whose last occurrence should be removed
+     * Time Complexity: O(n) - Requires a full traversal to find the last occurrence
+     * Space Complexity: O(1) - Uses only a few temporary node references
+     */
+    public void removeLastOccur(E element) {
+        if (first == null || last == null) return;
+        if (first == last && element.equals(first.data)) {
+            removeFirst();
+            return;
+        }
+
+        Node<E> prevLastOccur = null;
+        Node<E> lastOccur = null;
+        Node<E> prev = null;
+        Node<E> curr = first;
+        while (curr != null){
+            if(element.equals(curr.data)){
+                prevLastOccur = prev;
+                lastOccur = curr;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+
+        if(prevLastOccur == null){
+            removeFirst();
+            return;
+        }
+
+        if(lastOccur == last) {
+            removeLast();
+            return;
+        }
+
+        prevLastOccur.next = lastOccur.next;
+        size--;
+
+        verifyIntegrity();
+    }
+
+    /**
+     * Moves all occurrences of the specified element to the back of the LinkedList.
+     * The relative order of other elements is preserved.
+     *
+     * @param element The element to be moved to the back of the list
+     * Time Complexity: O(n) - Requires traversal of the list
+     * Space Complexity: O(1) - Uses only a few temporary node references
+     */
+    public void moveToBack(E element) {
+        if (first == null || last == null) return;
+
+        Node<E> dummyFirst = new Node<>(null, first);
+        Node<E> prev = dummyFirst;
+        Node<E> curr = first;
+        Node<E> originalLast = last;
+        while (curr != null && curr != originalLast) {
+            if (element.equals(curr.data)) {
+                prev.next = curr.next;
+                last.next = curr;
+                last = curr;
+                last.next = null;
+
+                curr = prev.next;
+            } else {
+                prev = curr;
+                curr = curr.next;
+            }
+        }
+        first = dummyFirst.next;
+        verifyIntegrity();
+    }
+
+
+    /**
+     * Remove all duplicate of elements in the LinkedList.
+     * The relative order of other elements is preserved.
+     *
+     * Time Complexity: O(n^2) - Requires traversal of the list
+     * Space Complexity: O(1) - Uses only a few temporary node references
+     */
+    public void removeDuplicate() {
+        if(first == null || last == null) return;
+
+        Node<E> element = first;
+
+        while (element != null) {
+            Node<E> prev = element;
+            Node<E> curr = element.next;
+
+            while (curr != null) {
+                if ((element.data == null && curr.data == null) ||
+                        (element.data != null && element.data.equals(curr.data))) {
+                    prev.next = curr.next;
+
+                    if (curr == last) {
+                        last = prev;
+                    }
+
+                    size--;
+                } else {
+                    prev = curr;
+                }
+                curr = prev.next;
+            }
+            element = element.next;
+        }
+        verifyIntegrity();
+    }
+
+    public void arrangeOddPosFirst(){
+        if (first == null || last == null || last == first ) return;
+
+        Node<E> firstOdd = first;
+        Node<E> firstEven = first.next;
+
+
+    }
 
     /**
      * Verifies the integrity of the LinkedList data structure.
      * Checks if size is consistent with the actual number of nodes.
      * Ensures that the last pointer correctly points to the last node.
-     * 
+     *
      * @throws RuntimeException if any inconsistency is found in the data structure
-     * Time Complexity: O(n) - Must traverse all nodes to verify integrity
-     * Space Complexity: O(1) - Uses only temporary counter variables
+     *                          Time Complexity: O(n) - Must traverse all nodes to verify integrity
+     *                          Space Complexity: O(1) - Uses only temporary counter variables
      */
     private void verifyIntegrity() {
         if (size == 0 && (first != null || last != null)) {
@@ -636,21 +797,19 @@ public class SingleLinkedList <E> {
     public void debugPrintAll() {
         if (first == null && last == null) {
             System.out.println("Head -> null");
-            System.out.println("[ }\t Size = 0");
+            System.out.println("[ ]\t Size = 0");
             System.out.println("Tail -> null");
         } else {
 
             Node<E> curr = first;
 
-            System.out.println("Head -> " + first.data);
-            System.out.print("[");
-            while (curr != null) {
-                System.out.print(curr.data + " ");
+            System.out.println("Head ---> " + first.data);
+            while (curr.next != null) {
+                System.out.print(curr.data + " --> " + curr.next.data);
                 curr = curr.next;
             }
-            System.out.print("]");
-            System.out.print("\t Size = " + size);
-            System.out.println("\nTail -> " + last.data);
+            System.out.println("\nTail ---> " + last.data);
+            System.out.println("The size is : " + size);
         }
     }
 }
