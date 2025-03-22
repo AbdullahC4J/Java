@@ -9,6 +9,17 @@ public class DoubleLinkedList<E> {
     private int size;
 
     /**
+     * Default constructor creates an empty linked list.
+     * Time Complexity: O(1) - Constant time operation
+     * Space Complexity: O(1) - Only initializes pointers and counter
+     */
+    public DoubleLinkedList(){
+        this.first = null;
+        this.last = null;
+        this.size = 0;
+    }
+
+    /**
      * Adds an element at the end of the double LinkedList
      *
      * @param element Value to insert at the end.
@@ -252,6 +263,11 @@ public class DoubleLinkedList<E> {
             Node<E> curr = first;
             System.out.println("Head ---> " + first.data);
             while (curr!= null) {
+                if(first == last){
+                    System.out.println(null + "  <--  " + curr.data + "  -->  " + null);
+                    break;
+                }
+
                 if (curr == first)
                     System.out.println(null + "  <--  " + curr.data + "  -->  " + curr.next.data);
                 else if (curr == last)
@@ -311,8 +327,22 @@ public class DoubleLinkedList<E> {
                 last = curr;
 
             curr = curr.next;
+            size--;
         }
         first = dummyFirst.next;
+    }
+
+    public void removeEvenPos() {
+        if (first == null || last == null || first == last) return;
+
+        Node<E> curr = first;
+        while (curr.next != null && curr.next.next != null){
+            linkNodes(curr, curr.next.next);
+            curr = curr.next;
+            size--;
+        }
+        if (curr.next == last)
+            removeLast();
     }
 
     public boolean isPalindrome(){
@@ -363,17 +393,74 @@ public class DoubleLinkedList<E> {
         return tempFirst.data;
     */
 
-    public void swapHeadTail(){
-        if (first == null || last == null || first == last) return;
+    public void swapFirstLast() {
+        if (first == null || first == last) return;
+
+        Node<E> dummyHead = first.next;
+        first.next = null;
+        first.prev = last.prev;
+        last.prev.next = first;
+        last.next = dummyHead;
+        dummyHead.prev = last;
+        last.prev = null;
+        last = first;
+        first = dummyHead.prev;
     }
 
-//    public void swapFwdBwd(int step){
-//        if (first == null || last == null || first == last) return;
-//        if (step == 0) swapHeadTail();
-//
-//        Node<E> tempFirst = first;
-//        Node<E> tempLast = last;
-//        while ()
-//
-//    }
+    private void swapNodes(Node<E> firstNode, Node<E> secNode) {
+        if (firstNode == null || secNode == null || firstNode == secNode) return;
+
+        if (firstNode == first && secNode == last) {
+            swapFirstLast();
+        }
+        else if (firstNode.next == secNode) {
+            firstNode.next = secNode.next;
+            secNode.prev = firstNode.prev;
+
+            if (secNode.next != null) secNode.next.prev = firstNode;
+            if (firstNode.prev != null) firstNode.prev.next = secNode;
+
+            secNode.next = firstNode;
+            firstNode.prev = secNode;
+        }
+        else {
+            Node<E> firstPrev = firstNode.prev;
+            Node<E> firstNext = firstNode.next;
+            Node<E> secPrev = secNode.prev;
+            Node<E> secNext = secNode.next;
+
+            if (firstPrev != null) firstPrev.next = secNode;
+            if (secPrev != null) secPrev.next = firstNode;
+
+            if (firstNext != null) firstNext.prev = secNode;
+            if (secNext != null) secNext.prev = firstNode;
+
+            firstNode.prev = secPrev;
+            firstNode.next = secNext;
+            secNode.prev = firstPrev;
+            secNode.next = firstNext;
+        }
+    }
+
+    public void swapFwdBwd(int step) {
+        if (first == null || first == last || step > size/2) return;
+
+        Node<E> tempFirst = first;
+        Node<E> tempLast = last;
+
+        while (--step > 0) {
+            tempFirst = tempFirst.next;
+            tempLast = tempLast.prev;
+        }
+        swapNodes(tempFirst, tempLast);
+        verifyIntegrity();
+    }
+
+    public void reverse(){
+
+    }
+
+    public void mergeSortedLists(DoubleLinkedList<E> secList){
+
+    }
 }

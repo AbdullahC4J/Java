@@ -13,9 +13,8 @@ public class TestDoubleLinkedList {
         obj.addLast(7);
         obj.addLast(8);
         System.out.println(obj);
-        obj.swapHeadTail();
+        obj.swapFwdBwd(4);
         System.out.println(obj);
-        System.out.println(obj.getMiddle());
 
         System.out.println();
         obj.debugPrintAll();

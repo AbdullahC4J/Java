@@ -491,7 +491,7 @@ public class SingleLinkedList<E> {
      * Time Complexity: O(n) - Requires finding the node before last
      * Space Complexity: O(1) - Uses only temporary variables
      */
-    public void swapFirstLastNode() {
+    public void swapFirstLast() {
         if (first == null || last == null || first == last)
             return;
 
