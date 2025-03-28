@@ -380,9 +380,7 @@ public class SingleLinkedList<E> {
 
     /**
      * Node class for the LinkedList implementation.
-     * Contains the integer data and reference to the next node.
-     * Time Complexity: O(1) for all operations
-     * Space Complexity: O(1) per node instance
+     * Contains the data and reference to the next node.
      */
     private static class Node<E> {
         private E data;

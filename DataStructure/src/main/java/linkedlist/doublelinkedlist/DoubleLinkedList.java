@@ -457,10 +457,34 @@ public class DoubleLinkedList<E> {
     }
 
     public void reverse(){
+        if (first == null || first == last) return;
 
+        Node<E> curr = first;
+        Node<E> prev = null;
+
+        while (curr != null){
+            prev = curr.prev;
+            curr.prev = curr.next;
+            curr.next = prev;
+            curr = curr.prev; // move to next node
+        }
+
+        prev = first;
+        first = last;
+        last = prev;
+        verifyIntegrity();
     }
-
-    public void mergeSortedLists(DoubleLinkedList<E> secList){
-
-    }
+//
+//    public void mergeSortedLists(DoubleLinkedList<E> secList){
+//        Node<E> curr = first;
+//        Node<E> secCurr = secList.first;
+//
+//        while (curr != null && secCurr != null){
+//            if(){
+//
+//            }else {
+//
+//            }
+//        }
+//    }
 }

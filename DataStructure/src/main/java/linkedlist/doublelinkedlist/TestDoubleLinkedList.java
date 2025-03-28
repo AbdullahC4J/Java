@@ -13,7 +13,7 @@ public class TestDoubleLinkedList {
         obj.addLast(7);
         obj.addLast(8);
         System.out.println(obj);
-        obj.swapFwdBwd(4);
+        obj.reverse();
         System.out.println(obj);
 
         System.out.println();
