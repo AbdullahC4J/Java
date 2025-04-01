@@ -1,4 +1,4 @@
-package sparse.array;
+package linkedlist.sparse.array;
 
 import java.util.Objects;
 

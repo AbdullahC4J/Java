@@ -21,9 +21,6 @@ public class SingleLinkedList<E> {
      * Space Complexity: O(1) - Only initializes pointers and counter
      */
     public SingleLinkedList() {
-        first = null;
-        last = null;
-        size = 0;
     }
 
     /**

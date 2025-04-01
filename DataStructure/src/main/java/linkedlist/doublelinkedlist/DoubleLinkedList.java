@@ -14,9 +14,6 @@ public class DoubleLinkedList<E> {
      * Space Complexity: O(1) - Only initializes pointers and counter
      */
     public DoubleLinkedList(){
-        this.first = null;
-        this.last = null;
-        this.size = 0;
     }
 
     /**

@@ -1,8 +1,9 @@
-package stack.array;
+import stack.array.StackArray;
 
-public class TestStackArray {
+public class Test {
     public static void main(String[] args) {
-        StackArray<Integer> stack = new StackArray<>(10);
+
+//        StackArray<Integer> stack = new StackArray<>(10);
 //        stack.push(1);
 //        stack.push(2);
 //        stack.push(3);
@@ -15,8 +16,49 @@ public class TestStackArray {
 
 //        System.out.println(Arrays.toString(nextGreaterPosition(new int[]{30,60,90})));  -> [1,1,0]
 //        System.out.println(infixToPostfix("a+b*(c^d-e)^(f+G*h)-i"));
-        System.out.println(evaluatePostfix("123*+"));
+//        System.out.println(evaluatePostfix("123*+"));
 
+//        StackQueue<Integer> stack1 = new StackQueue<>(5);
+//        stack1.push(1);
+//        stack1.push(2);
+//        stack1.push(3);
+//        stack1.push(4);
+//        System.out.println(stack1);
+//        System.out.println(stack1.pop());
+
+//        Deque<Integer> deqeue = new Deque<>(6);
+//        deqeue.enqueueFirst(1);
+//        deqeue.enqueueFirst(2);
+//        deqeue.enqueueLast(3);
+//        System.out.println(deqeue);
+//        deqeue.dequeueFirst();
+//        System.out.println(deqeue);
+//        deqeue.dequeueLast();
+//        System.out.println(deqeue);
+//
+//        StackArray<Integer> stack2 = new StackArray<>(5);
+//        stack2.push(1);
+//        stack2.push(2);
+//        stack2.push(3);
+//        stack2.push(4);
+//        System.out.println(stack2);
+//        System.out.println(stack2.pop());
+
+//        QueueStack<Integer> queue = new QueueStack<>(5);
+//        queue.enqueue(1);
+//        queue.enqueue(2);
+//        queue.enqueue(3);
+//        System.out.println(queue);
+//        System.out.println(queue.dequeue());
+//        System.out.println(queue);
+
+//        QueueArray<Integer> queue = new QueueArray<>(3);
+//        queue.enqueue(1);
+//        queue.enqueue(2);
+//        queue.enqueue(3);
+//        System.out.println(queue);
+//        System.out.println(queue.dequeue());
+//        System.out.println(queue);
     }
 
 
@@ -156,10 +198,10 @@ public class TestStackArray {
             if((curr >= '0' && curr <= '9') || (curr >= 'A' && curr <= 'Z') || (curr >= 'a' && curr <= 'z')){
                 postfix.append(curr);
             }else if(curr == '+' || curr == '-' || curr == '*' || curr == '/' || curr == '^'){
-                        while (!opStack.isEmpty() &&
-                                (precedence(opStack.peek()) >= precedence(curr) ||
+                while (!opStack.isEmpty() &&
+                        (precedence(opStack.peek()) >= precedence(curr) ||
                                 (precedence(opStack.peek()) == precedence(curr) && curr != '^')))
-                            postfix.append(opStack.pop());
+                    postfix.append(opStack.pop());
 
                 opStack.push(curr);
             } else if (curr == '(') {
@@ -206,6 +248,4 @@ public class TestStackArray {
             default -> Math.pow(operand2,operand1);
         };
     }
-
-
 }

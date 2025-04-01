@@ -1,6 +1,6 @@
-package sparse.matrix;
+package linkedlist.sparse.matrix;
 
-import sparse.array.SparseArray;
+import linkedlist.sparse.array.SparseArray;
 import java.util.Objects;
 
 /**
