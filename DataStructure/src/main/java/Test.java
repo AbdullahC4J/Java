@@ -1,67 +1,49 @@
 import stack.array.StackArray;
+import tree.binary.BinaryTree;
 
 public class Test {
     public static void main(String[] args) {
+        BinaryTree bt = new BinaryTree(0);
+        bt.add(new int[]{1, 3}, new char[]{'L', 'L'});
+        bt.add(new int[]{2, 6, 10}, new char[]{'R', 'R', 'R'});
+        bt.add(new int[]{2, 5, 8, 11, 13, 14}, new char[]{'R', 'L', 'L', 'L', 'R', 'R'});
+        bt.add(new int[]{2, 6, 9, 12}, new char[]{'R', 'R', 'L', 'L'});
+        bt.add(new int[]{1, 4, 7}, new char[]{'L', 'R', 'L'});
 
-//        StackArray<Integer> stack = new StackArray<>(10);
-//        stack.push(1);
-//        stack.push(2);
-//        stack.push(3);
-//        stack.push(4);
-//        System.out.println(stack);
-//        stack.insertAtBottom(0);
-//        System.out.println(stack);
-//        stack.reverse();
-//        System.out.println(stack);
 
-//        System.out.println(Arrays.toString(nextGreaterPosition(new int[]{30,60,90})));  -> [1,1,0]
-//        System.out.println(infixToPostfix("a+b*(c^d-e)^(f+G*h)-i"));
-//        System.out.println(evaluatePostfix("123*+"));
+//       BinaryTree bt1 = new BinaryTree(new LinkedList<>(Arrays.asList(0,1,3,4,7,2,5,8,11,13,14,6,9,12,10)),
+//               new LinkedList<>(Arrays.asList(3,1,7,4,0,11,13,14,8,5,2,12,9,6,10)));
 
-//        StackQueue<Integer> stack1 = new StackQueue<>(5);
-//        stack1.push(1);
-//        stack1.push(2);
-//        stack1.push(3);
-//        stack1.push(4);
-//        System.out.println(stack1);
-//        System.out.println(stack1.pop());
+//        System.out.println(bt.countLeaves());
+//        System.out.println(bt.height());
+//        System.out.println(bt.getDiameter());
+//        bt.printRightBoundary();
+//        bt.printLeftBoundary();
+//        bt.printPreOrder();
+//        bt.printPreOrderComplete();
+//        System.out.println(bt.toParenthesizedString());
+//        System.out.println(bt.isComplete());
+//        System.out.println(bt.isSymmetric());
+//        System.out.println(bt.toCanonicalParenthesisString());
 
-//        Deque<Integer> deqeue = new Deque<>(6);
-//        deqeue.enqueueFirst(1);
-//        deqeue.enqueueFirst(2);
-//        deqeue.enqueueLast(3);
-//        System.out.println(deqeue);
-//        deqeue.dequeueFirst();
-//        System.out.println(deqeue);
-//        deqeue.dequeueLast();
-//        System.out.println(deqeue);
-//
-//        StackArray<Integer> stack2 = new StackArray<>(5);
-//        stack2.push(1);
-//        stack2.push(2);
-//        stack2.push(3);
-//        stack2.push(4);
-//        System.out.println(stack2);
-//        System.out.println(stack2.pop());
+//        BinaryTree bt1 = new BinaryTree(0);
+//        bt1.add(new int[]{1, 3, 5}, new char[]{'L', 'L', 'R'});
+//        bt1.add(new int[]{1, 3, 5}, new char[]{'R', 'R', 'L'});
+//        bt1.printDuplicateSubtrees();
 
-//        QueueStack<Integer> queue = new QueueStack<>(5);
-//        queue.enqueue(1);
-//        queue.enqueue(2);
-//        queue.enqueue(3);
-//        System.out.println(queue);
-//        System.out.println(queue.dequeue());
-//        System.out.println(queue);
+//        BinaryTree bt2 = new BinaryTree(1);
+//        bt2.add(new int[]{ 2, 3 },new char[]{ 'L', 'L'});
+//        bt2.add(new int[]{ 4, 5, 6, 8, 9 }, new char[]{ 'R', 'R', 'R', 'R', 'R' });
+//        bt2.add(new int[]{ 4, 2, 3 }, new char[]{ 'R', 'L', 'L'});
+//        bt2.add(new int[]{ 4, 5, 6, 7 }, new char[]{ 'R', 'R', 'L', 'L'});
+//        bt2.add(new int[]{ 4, 5, 6, 8, 9 }, new char[]{ 'R', 'R', 'L', 'R', 'R'});
+//        bt2.add(new int[]{ 4, 5, 6, 7 }, new char[]{ 'R', 'R', 'R', 'L'});
+//        bt2.printDuplicateSubtrees();
 
-//        QueueArray<Integer> queue = new QueueArray<>(3);
-//        queue.enqueue(1);
-//        queue.enqueue(2);
-//        queue.enqueue(3);
-//        System.out.println(queue);
-//        System.out.println(queue.dequeue());
-//        System.out.println(queue);
+
+//        BinaryTree exTree = new BinaryTree("23+4*");
+//        exTree.printPostOrderExpression();
     }
-
-
 
     public static String reverseSubWord(String line){
         StackArray<Character> stack= new StackArray<>();
@@ -248,4 +230,5 @@ public class Test {
             default -> Math.pow(operand2,operand1);
         };
     }
+
 }

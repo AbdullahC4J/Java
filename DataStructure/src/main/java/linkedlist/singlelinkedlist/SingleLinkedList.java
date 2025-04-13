@@ -435,6 +435,7 @@ public class SingleLinkedList<E> {
      *                Space Complexity: O(1) - Only creates one new node
      *                Don't use it
      */
+    @SuppressWarnings("unchecked")
     public <T extends Number & Comparable<T>> void addSorted(T element) {
         if (first == null || element.compareTo((T) first.data) <= 0) { // if the LinkedList is empty or Insert at if small
             addFirst((E) element);
@@ -707,7 +708,7 @@ public class SingleLinkedList<E> {
     }
 
 
-    /**
+    /* *
      * Remove all duplicate of elements in the LinkedList.
      * The relative order of other elements is preserved.
      *
