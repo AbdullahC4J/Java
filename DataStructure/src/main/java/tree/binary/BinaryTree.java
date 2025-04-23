@@ -43,12 +43,12 @@ public class BinaryTree {
 //    private Node buildTree(Deque<Integer> preOrder, Deque<Integer> inOrder){
 //        if (inOrder.isEmpty()) return null;
 //
-//        Node curr = new Node(preOrder.remove());
+//        Node z = new Node(preOrder.remove());
 //
 //        Deque<Integer> left = new LinkedList<>();
 //        Deque<Integer> right = new LinkedList<>();
 //
-//        while (inOrder.peek() != curr.data)
+//        while (inOrder.peek() != curNode.data)
 //            left.add(inOrder.remove());
 //
 //        inOrder.remove();
@@ -56,10 +56,10 @@ public class BinaryTree {
 //        while (!inOrder.isEmpty())
 //            right.add(inOrder.remove());
 //
-//        curr.lhs = buildTree(preOrder, left);
-//        curr.rhs = buildTree(preOrder,right);
+//        curNode.lhs = buildTree(preOrder, left);
+//        curNode.rhs = buildTree(preOrder,right);
 //
-//        return curr;
+//        return curNode;
 //    }
 
 //    /**
@@ -73,14 +73,14 @@ public class BinaryTree {
 //        Stack<Node> stack = new Stack<>();
 //
 //        for (int i = 0; i < postFix.length(); ++i){
-//            Node curr = new Node(postFix.charAt(i));
+//            Node curNode = new Node(postFix.charAt(i));
 //
-//            if (curr.data < '0' || curr.data > '9') {
-//                curr.rhs = stack.pop();
-//                curr.lhs = stack.pop();
+//            if (curNode.data < '0' || curNode.data > '9') {
+//                curNode.rhs = stack.pop();
+//                curNode.lhs = stack.pop();
 //            }
 //
-//            stack.push(curr);
+//            stack.push(curNode);
 //        }
 //
 //        root = stack.pop();
@@ -101,23 +101,23 @@ public class BinaryTree {
         if (data.length != directions.length)
             throw new IllegalArgumentException("Mismatched values and directions length");
 
-        Node curr = root;
+        Node curNode = root;
         for (int i = 0; i < data.length; ++i){
             if (directions[i] == 'L'){
-                if (curr.lhs == null)
-                    curr.lhs = new Node(data[i]);
-                else if (curr.lhs.data != data[i])
+                if (curNode.lhs == null)
+                    curNode.lhs = new Node(data[i]);
+                else if (curNode.lhs.data != data[i])
                     throw new AssertionError("Incorrect left value in path");
 
-                curr = curr.lhs;
+                curNode = curNode.lhs;
 
             }else if (directions[i] == 'R'){
-                if (curr.rhs == null)
-                    curr.rhs = new Node(data[i]);
-                else if (curr.rhs.data != data[i])
+                if (curNode.rhs == null)
+                    curNode.rhs = new Node(data[i]);
+                else if (curNode.rhs.data != data[i])
                     throw new AssertionError("Incorrect right value in path");
 
-                curr = curr.rhs;
+                curNode = curNode.rhs;
 
             }else {
                 throw new IllegalArgumentException("Invalid direction: " + directions[i]);
@@ -184,6 +184,11 @@ public class BinaryTree {
         System.out.println();
     }
 
+    /**
+     * Prints the tree nodes in pre-order traversal with null nodes explicitly shown.
+     * Time Complexity: O(n) where n is the number of nodes in the tree
+     * Space Complexity: O(h) where h is the height of the tree (due to recursion stack)
+     */
     public void printPreOrderComplete(){
         printPreOrderComplete(root);
         System.out.println();
@@ -191,6 +196,8 @@ public class BinaryTree {
 
     /**
      * Prints the nodes of the subtree rooted at the given node in level-order traversal.
+     * Time Complexity: O(n) where n is the number of nodes in the tree
+     * Space Complexity: O(w) where w is the maximum width of the tree
      */
     public void printLevelOrder(){
         Queue<Node> queue = new LinkedList<>();
@@ -202,14 +209,14 @@ public class BinaryTree {
 
             System.out.println("Level : " + level);
             while (size-- > 0) {
-                Node currNode = queue.remove();
-                System.out.print(currNode.data + " ");
+                Node curNode = queue.remove();
+                System.out.print(curNode.data + " ");
 
-                if (currNode.lhs != null)
-                    queue.add(currNode.lhs);
+                if (curNode.lhs != null)
+                    queue.add(curNode.lhs);
 
-                if (currNode.rhs != null)
-                    queue.add(currNode.rhs);
+                if (curNode.rhs != null)
+                    queue.add(curNode.rhs);
 
             }
             ++level;
@@ -227,26 +234,26 @@ public class BinaryTree {
             int size = deque.size();
 
             while (size-- > 0){
-                Node currNode;
+                Node curNode;
                 if (fwdLvl){
-                    currNode = deque.removeFirst();
-                    System.out.print(currNode.data + " ");
+                    curNode = deque.removeFirst();
+                    System.out.print(curNode.data + " ");
 
-                    if (currNode.lhs != null)
-                        deque.addLast(currNode.lhs);// left added first here
+                    if (curNode.lhs != null)
+                        deque.addLast(curNode.lhs);// left added first here
 
-                    if (currNode.rhs != null)
-                        deque.addLast(currNode.rhs);
+                    if (curNode.rhs != null)
+                        deque.addLast(curNode.rhs);
 
                 }else {
-                    currNode = deque.removeLast();
-                    System.out.print(currNode.data + " ");
+                    curNode = deque.removeLast();
+                    System.out.print(curNode.data + " ");
 
-                    if (currNode.rhs != null)
-                        deque.addFirst(currNode.rhs);// right added first here
+                    if (curNode.rhs != null)
+                        deque.addFirst(curNode.rhs);// right added first here
 
-                    if (currNode.lhs != null)
-                        deque.addFirst(currNode.lhs);
+                    if (curNode.lhs != null)
+                        deque.addFirst(curNode.lhs);
                 }
             }
             fwdLvl = !fwdLvl;
@@ -277,22 +284,22 @@ public class BinaryTree {
             boolean isLeafLevel = false;
 
             while (size-- > 0){
-                Node currNode = queue.remove();
+                Node curNode = queue.remove();
 
-                if (currNode.lhs != null){
+                if (curNode.lhs != null){
                     if (isLeafLevel)
                         return false;
 
-                    queue.add(currNode.lhs);
+                    queue.add(curNode.lhs);
                 }else {
                     isLeafLevel = true;
                 }
 
-                if (currNode.rhs != null){
+                if (curNode.rhs != null){
                     if (isLeafLevel)
                         return false;
 
-                    queue.add(currNode.rhs);
+                    queue.add(curNode.rhs);
                 }else {
                     isLeafLevel = true;
                 }
@@ -384,7 +391,10 @@ public class BinaryTree {
     }
 
     public boolean isSymmetric(){
-        return isMirror(root.lhs, root.lhs);
+        if (root == null)
+            return false;
+
+        return isMirror(root.lhs, root.rhs);
     }
 
     /**
@@ -430,16 +440,16 @@ public class BinaryTree {
      * Time Complexity: O(n²) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @return the diameter of the subtree
      */
-    private int getDiameter(Node curr){
-        if (curr == null)
+    private int getDiameter(Node curNode){
+        if (curNode == null)
             return 0;
 
-        int currDia = getHeight(curr.lhs) + getHeight(curr.rhs) + 2; //the 2 for left and right edges connected the children
+        int curDia = getHeight(curNode.lhs) + getHeight(curNode.rhs) + 2; //the 2 for left and right edges connected the children
 
-        return Math.max(currDia, Math.max(getDiameter(curr.lhs) , getDiameter(curr.rhs)));
+        return Math.max(curDia, Math.max(getDiameter(curNode.lhs) , getDiameter(curNode.rhs)));
     }
 
     /**
@@ -447,17 +457,17 @@ public class BinaryTree {
      * Time Complexity: O(h) where h is the height of the tree
      * Space Complexity: O(h) where h is the height of the tree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      */
-    private void printRightBoundary(Node curr){
-        if (isLeaf(curr)) return;
+    private void printRightBoundary(Node curNode){
+        if (isLeaf(curNode)) return;
 
-        System.out.print(curr.data + " ");
+        System.out.print(curNode.data + " ");
 
-        if (curr.rhs != null)
-            printRightBoundary(curr.rhs);
-        else if (curr.lhs != null)
-            printRightBoundary(curr.lhs);
+        if (curNode.rhs != null)
+            printRightBoundary(curNode.rhs);
+        else if (curNode.lhs != null)
+            printRightBoundary(curNode.lhs);
     }
 
     /**
@@ -465,17 +475,17 @@ public class BinaryTree {
      * Time Complexity: O(h) where h is the height of the tree
      * Space Complexity: O(h) where h is the height of the tree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      */
-    private void printLeftBoundary(Node curr){
-        if (isLeaf(curr)) return;
+    private void printLeftBoundary(Node curNode){
+        if (isLeaf(curNode)) return;
 
-        System.out.print(curr.data + " ");
+        System.out.print(curNode.data + " ");
 
-        if (curr.lhs != null)
-            printLeftBoundary(curr.lhs);
-        else if (curr.rhs != null)
-            printLeftBoundary(curr.rhs);
+        if (curNode.lhs != null)
+            printLeftBoundary(curNode.lhs);
+        else if (curNode.rhs != null)
+            printLeftBoundary(curNode.rhs);
     }
 
     /**
@@ -483,17 +493,17 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the node whose children should be cleared
+     * @param curNode the node whose children should be cleared
      */
-    private void clearChildren(Node curr){
-        if (curr == null)
+    private void clearChildren(Node curNode){
+        if (curNode == null)
             return;
 
-        clearChildren(curr.lhs);
-        clearChildren(curr.rhs);
+        clearChildren(curNode.lhs);
+        clearChildren(curNode.rhs);
 
-        curr.lhs = null;
-        curr.rhs = null;
+        curNode.lhs = null;
+        curNode.rhs = null;
     }
 
     /**
@@ -501,41 +511,42 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @param h the expected height of the subtree, or -1 to calculate it
      * @return true if the subtree is perfect, false otherwise
      */
-    private boolean isPerfect(Node curr, int h){
+    private boolean isPerfect(Node curNode, int h){
 //         return countNodes(root) == (Math.pow(2, getHeight(root) + 1) - 1); // if perfect then no. of nodes = 2^(h+1) - 1
         if(h == -1)
-            h = getHeight(curr);
+            h = getHeight(curNode);
 
-        if (isLeaf(curr)) // leaf
+        if (isLeaf(curNode)) // leaf
             return h == 0;
 
-        if (curr.lhs == null || curr.rhs == null) // have one child
+        if (curNode.lhs == null || curNode.rhs == null) // have one child
             return false;
 
-        return isPerfect(curr.lhs, h - 1) && isPerfect(curr.rhs, h - 1);
+        return isPerfect(curNode.lhs, h - 1) && isPerfect(curNode.rhs, h - 1);
     }
 
     /**
-     * Checks if the subtree rooted at the given node contains the specified value.
-     * Time Complexity: O(n) where n is the number of nodes in the subtree
-     * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
+     * Checks if two subtrees are flip equivalent.
+     * Two binary trees are flip equivalent if they can be made identical by flipping some of their nodes.
+     * Time Complexity: O(min(n1,n2)²) where n1 and n2 are the number of nodes in the subtrees
+     * Space Complexity: O(min(h1,h2)) where h1 and h2 are the heights of the subtrees (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @param value the value to search for
      * @return true if the subtree contains the value, false otherwise
      */
-    private boolean contains(Node curr, int value){
-        if (curr == null)
+    private boolean contains(Node curNode, int value){
+        if (curNode == null)
             return false;
 
-        if (curr.data == value)
+        if (curNode.data == value)
             return true;
 
-        return contains(curr.lhs, value) || contains(curr.rhs, value);
+        return contains(curNode.lhs, value) || contains(curNode.rhs, value);
     }
 
     /**
@@ -543,20 +554,20 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @return the number of leaf nodes in the subtree
      */
-    private int countLeaves(Node curr){
-        if (isLeaf(curr))
+    private int countLeaves(Node curNode){
+        if (isLeaf(curNode))
             return 1;
 
         int result = 0;
 
-        if (curr.lhs != null)
-            result += countLeaves(curr.lhs);
+        if (curNode.lhs != null)
+            result += countLeaves(curNode.lhs);
 
-        if(curr.rhs != null)
-            result += countLeaves(curr.rhs);
+        if(curNode.rhs != null)
+            result += countLeaves(curNode.rhs);
 
         return result;
     }
@@ -566,14 +577,14 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @return the number of nodes in the subtree
      */
-    private int countNodes(Node curr){
-        if (curr == null)
+    private int countNodes(Node curNode){
+        if (curNode == null)
             return 0;
 
-        return 1 + countNodes(curr.lhs) + countNodes(curr.rhs);
+        return 1 + countNodes(curNode.lhs) + countNodes(curNode.rhs);
     }
 
     /**
@@ -581,14 +592,14 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @return the height of the subtree, or -1 if the subtree is empty
      */
-    private int getHeight(Node curr){
-        if (curr == null)
+    private int getHeight(Node curNode){
+        if (curNode == null)
             return -1;
 
-        return 1 + Math.max(getHeight(curr.lhs),getHeight(curr.rhs));
+        return 1 + Math.max(getHeight(curNode.lhs),getHeight(curNode.rhs));
     }
 
     /**
@@ -596,13 +607,13 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @return the minimum value in the subtree, or Integer.MAX_VALUE if the subtree is empty
      */
-    private int getMin(Node curr){
-        if(curr == null)
+    private int getMin(Node curNode){
+        if(curNode == null)
             return Integer.MAX_VALUE;
-        return Math.min(Math.min(getMin(curr.rhs), getMin(curr.lhs)), curr.data);
+        return Math.min(Math.min(getMin(curNode.rhs), getMin(curNode.lhs)), curNode.data);
     }
 
     /**
@@ -610,13 +621,13 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      * @return the maximum value in the subtree, or Integer.MIN_VALUE if the subtree is empty
      */
-    private int getMax(Node curr){
-        if(curr == null)
+    private int getMax(Node curNode){
+        if(curNode == null)
             return Integer.MIN_VALUE;
-        return Math.max(Math.max(getMax(curr.rhs), getMax(curr.lhs)), curr.data);
+        return Math.max(Math.max(getMax(curNode.rhs), getMax(curNode.lhs)), curNode.data);
     }
 
     /**
@@ -624,29 +635,29 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      */
-    private void printPostOrder(Node curr){ //LRV -> Depth-First
-        if (curr == null)
+    private void printPostOrder(Node curNode){ //LRV -> Depth-First
+        if (curNode == null)
             return;
 
-        printPostOrder(curr.lhs);
-        printPostOrder(curr.rhs);
-        System.out.print(curr.data + " ");
+        printPostOrder(curNode.lhs);
+        printPostOrder(curNode.rhs);
+        System.out.print(curNode.data + " ");
     }
 
 //    /**
 //     * Prints the nodes of the subtree rooted at the given node as characters in post-order traversal.
 //     *
-//     * @param curr the root of the subtree
+//     * @param curNode the root of the subtree
 //     */
-//    private void printPostOrderExpression(Node curr){
-//        if (curr == null)
+//    private void printPostOrderExpression(Node curNode){
+//        if (curNode == null)
 //            return;
 //
-//        printPostOrderExpression(curr.lhs);
-//        printPostOrderExpression(curr.rhs);
-//        System.out.print((char)curr.data + " ");
+//        printPostOrderExpression(curNode.lhs);
+//        printPostOrderExpression(curNode.rhs);
+//        System.out.print((char)curNode.data + " ");
 //    }
 
     /**
@@ -654,14 +665,14 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      */
-    private void printPreOrder(Node curr){ //VLR -> Depth-First
-        if (curr == null)
+    private void printPreOrder(Node curNode){ //VLR -> Depth-First
+        if (curNode == null)
             return;
-        System.out.print(curr.data + " ");
-        printPreOrder(curr.lhs);
-        printPreOrder(curr.rhs);
+        System.out.print(curNode.data + " ");
+        printPreOrder(curNode.lhs);
+        printPreOrder(curNode.rhs);
     }
 
     /**
@@ -669,18 +680,18 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      */
-    private void printPreOrderComplete(Node curr){
-        System.out.print(curr.data + " ");
+    private void printPreOrderComplete(Node curNode){
+        System.out.print(curNode.data + " ");
 
-        if (curr.lhs != null)
-            printPreOrderComplete(curr.lhs);
+        if (curNode.lhs != null)
+            printPreOrderComplete(curNode.lhs);
         else
             System.out.print("null ");
 
-        if (curr.rhs != null)
-            printPreOrderComplete(curr.rhs);
+        if (curNode.rhs != null)
+            printPreOrderComplete(curNode.rhs);
         else
             System.out.print("null ");
     }
@@ -690,98 +701,98 @@ public class BinaryTree {
      * Time Complexity: O(n) where n is the number of nodes in the subtree
      * Space Complexity: O(h) where h is the height of the subtree (due to recursion stack)
      *
-     * @param curr the root of the subtree
+     * @param curNode the root of the subtree
      */
-    private void printInOrder(Node curr){ //LVR -> Depth-First
-        if (curr == null)
+    private void printInOrder(Node curNode){ //LVR -> Depth-First
+        if (curNode == null)
             return;
-        printInOrder(curr.lhs);
-        System.out.print(curr.data + " ");
-        printInOrder(curr.rhs);
+        printInOrder(curNode.lhs);
+        System.out.print(curNode.data + " ");
+        printInOrder(curNode.rhs);
 
 /*  Printing Inorder Iteratively
-        if (curr == null)
+        if (curNode == null)
             return;
 
         Stack<Node> stack = new Stack<>();
         while (true){
-            if (curr != null){
-                stack.push(curr);
-                curr = curr.lhs;
+            if (curNode != null){
+                stack.push(curNode);
+                curNode = curNode.lhs;
             }else{
                 if (stack.isEmpty()) break;
 
-                curr = stack.pop();
-                System.out.print(curr.data + " ");
-                curr = curr.rhs;
+                curNode = stack.pop();
+                System.out.print(curNode.data + " ");
+                curNode = curNode.rhs;
             }
         }
     */
     }
 
-    private void printDuplicateSubtrees(Node curr){
-//        if (curr == null) return;
+    private void printDuplicateSubtrees(Node curNode){
+//        if (curNode == null) return;
 //
-//        String leftCanonical = toCanonicalParenthesisString(curr.lhs);
-//        String rightCanonical = toCanonicalParenthesisString(curr.rhs);
+//        String leftCanonical = toCanonicalParenthesisString(curNode.lhs);
+//        String rightCanonical = toCanonicalParenthesisString(curNode.rhs);
 //
 //        if(leftCanonical.equals(rightCanonical)){
 //            StringBuilder sb = new StringBuilder();
-//            toParenthesizedString(curr.lhs, sb);
+//            toParenthesizedString(curNode.lhs, sb);
 //            System.out.println(sb.toString());
 //        }
     }
 
-    private void toParenthesizedString(Node curr, StringBuilder str){
-        if (curr == null) return;
+    private void toParenthesizedString(Node curNode, StringBuilder str){
+        if (curNode == null) return;
 
-        str.append(curr.data);
+        str.append(curNode.data);
 
-        if (curr.lhs != null || curr.rhs != null) {
+        if (curNode.lhs != null || curNode.rhs != null) {
             str.append("(");
-            toParenthesizedString(curr.lhs, str);
+            toParenthesizedString(curNode.lhs, str);
             str.append(")");
         }
 
-        if (curr.rhs != null) {
+        if (curNode.rhs != null) {
             str.append("(");
-            toParenthesizedString(curr.rhs, str);
+            toParenthesizedString(curNode.rhs, str);
             str.append(")");
         }
         // The assignment but not logical to print empty parentheses
-//        str.append(curr.data);
+//        str.append(curNode.data);
 //        str.append("(");
-//        toParenthesizedString(curr.lhs, str);
+//        toParenthesizedString(curNode.lhs, str);
 //        str.append(")");
 //        str.append("(");
-//        toParenthesizedString(curr.rhs, str);
+//        toParenthesizedString(curNode.rhs, str);
 //        str.append(")");
 
     }
 
-    private String toCanonicalParenthesisString(Node curr){
-        if (curr == null) {
+    private String toCanonicalParenthesisString(Node curNode){
+        if (curNode == null) {
             return "()";
         }
 
-        String leftStr = toCanonicalParenthesisString(curr.lhs);
-        String rightStr = toCanonicalParenthesisString(curr.rhs);
+        String leftStr = toCanonicalParenthesisString(curNode.lhs);
+        String rightStr = toCanonicalParenthesisString(curNode.rhs);
 
         String[] subTrees= {leftStr, rightStr};
         Arrays.sort(subTrees);
 
-        return "(" + curr.data + subTrees[0] + subTrees[1] + ")";
+        return "(" + curNode.data + subTrees[0] + subTrees[1] + ")";
     }
     /**
      * Checks if the given node is a leaf node (has no children).
      * Time Complexity: O(1)
      * Space Complexity: O(1)
      *
-     * @param curr the node to check
+     * @param curNode the node to check
      * @return true if the node is a leaf, false otherwise
      */
-    private boolean isLeaf(Node curr){
-        return curr.lhs == null && curr.rhs == null;
+    private boolean isLeaf(Node curNode){
+        return curNode.lhs == null && curNode.rhs == null;
     }
 
     private boolean isMirror(Node firstTree, Node secondTree){
@@ -791,7 +802,7 @@ public class BinaryTree {
         if (firstTree == null || secondTree == null || firstTree.data != secondTree.data)
             return false;
 
-        return isMirror(firstTree.lhs, secondTree.rhs) && isMirror(firstTree.lhs, secondTree.rhs);
+        return isMirror(firstTree.lhs, secondTree.rhs) && isMirror(firstTree.rhs, secondTree.lhs);
     }
 
     private boolean isFlipEquivalent(Node firstTree, Node secondTree){

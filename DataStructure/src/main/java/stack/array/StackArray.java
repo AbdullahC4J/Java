@@ -135,7 +135,7 @@ public class StackArray <E> {
      * 
      * @param item The element to be inserted at the bottom of the stack
      */
-    public void insertAtBottom(E item){ // could be implemented by using auxiliary stack or array
+    public void insertAtBottom(E item){
         if(isEmpty()){
             push(item);
         }else{
@@ -143,6 +143,18 @@ public class StackArray <E> {
             insertAtBottom(item);
             push(tempPeek);
         }
+
+        // Another implementation by using auxiliary stack
+//        StackArray<E> auxStack = new StackArray<>();
+//        while (!isEmpty()) {
+//            auxStack.push(this.pop());
+//        }
+//
+//        auxStack.push(item);
+//
+//        while (!auxStack.isEmpty()) {
+//            this.push(auxStack.pop());
+//        }
     }
 
     /**
@@ -158,11 +170,20 @@ public class StackArray <E> {
         reverse();
         insertAtBottom(tempPeek);
     }
+
+    /* Using New Array */
 //    MyArrayList<E> newArray = new MyArrayList<>(capacity);
 //        while (!isEmpty()){
 //        newArray.addLast(pop());
 //    }
 //        this.array = newArray;
+
+    /* Using Auxiliary Stack */
+//        StackArray<E> auxStack = new StackArray<>();
+//        while (!isEmpty()) {
+//            auxStack.push(this.pop());
+//        }
+//
 
     /**
      * Returns a string representation of the stack.

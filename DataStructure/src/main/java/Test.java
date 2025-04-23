@@ -1,48 +1,43 @@
 import stack.array.StackArray;
-import tree.binary.BinaryTree;
+import tree.binary.BinarySearchTree;
 
 public class Test {
     public static void main(String[] args) {
-        BinaryTree bt = new BinaryTree(0);
-        bt.add(new int[]{1, 3}, new char[]{'L', 'L'});
-        bt.add(new int[]{2, 6, 10}, new char[]{'R', 'R', 'R'});
-        bt.add(new int[]{2, 5, 8, 11, 13, 14}, new char[]{'R', 'L', 'L', 'L', 'R', 'R'});
-        bt.add(new int[]{2, 6, 9, 12}, new char[]{'R', 'R', 'L', 'L'});
-        bt.add(new int[]{1, 4, 7}, new char[]{'L', 'R', 'L'});
+//        BinarySearchTree bst = new BinarySearchTree(50);
+//        bst.add(20);
+//        bst.add(60);
+//        bst.add(15);
+//        bst.add(45);
+//        bst.add(70);
+//        bst.add(35);
+//        bst.add(47);
+//        bst.add(73);
+//        bst.add(11);
+//        bst.add(17);
+//        System.out.println(bst.inOrderTraverse());
+//        bst.remove(45);
+//        System.out.println(bst.inOrderTraverse());
+//        System.out.println(bst.isBST());
+//        System.out.println(bst.getSuccessor(60));
+
+        int[] arr = {50,20,60,15,45,70,35,73};
+        BinarySearchTree bst1 = new BinarySearchTree(arr);
+        System.out.println(bst1.inOrderTraverse());
+        bst1.remove(50);
+        System.out.println(bst1.inOrderTraverse());
+        System.out.println(bst1.preOrderTraverse());
+        System.out.println(bst1.isBST());
 
 
-//       BinaryTree bt1 = new BinaryTree(new LinkedList<>(Arrays.asList(0,1,3,4,7,2,5,8,11,13,14,6,9,12,10)),
-//               new LinkedList<>(Arrays.asList(3,1,7,4,0,11,13,14,8,5,2,12,9,6,10)));
+//        BinarySearchTree bst1 = new BinarySearchTree(20);
+//        bst1.add(22);
+//        bst1.add(8);
+//        bst1.add(12);
+//        bst1.add(4);
+//        bst1.add(14);
+//        bst1.add(10);
+//        System.out.println(bst1.getSuccessor(12));
 
-//        System.out.println(bt.countLeaves());
-//        System.out.println(bt.height());
-//        System.out.println(bt.getDiameter());
-//        bt.printRightBoundary();
-//        bt.printLeftBoundary();
-//        bt.printPreOrder();
-//        bt.printPreOrderComplete();
-//        System.out.println(bt.toParenthesizedString());
-//        System.out.println(bt.isComplete());
-//        System.out.println(bt.isSymmetric());
-//        System.out.println(bt.toCanonicalParenthesisString());
-
-//        BinaryTree bt1 = new BinaryTree(0);
-//        bt1.add(new int[]{1, 3, 5}, new char[]{'L', 'L', 'R'});
-//        bt1.add(new int[]{1, 3, 5}, new char[]{'R', 'R', 'L'});
-//        bt1.printDuplicateSubtrees();
-
-//        BinaryTree bt2 = new BinaryTree(1);
-//        bt2.add(new int[]{ 2, 3 },new char[]{ 'L', 'L'});
-//        bt2.add(new int[]{ 4, 5, 6, 8, 9 }, new char[]{ 'R', 'R', 'R', 'R', 'R' });
-//        bt2.add(new int[]{ 4, 2, 3 }, new char[]{ 'R', 'L', 'L'});
-//        bt2.add(new int[]{ 4, 5, 6, 7 }, new char[]{ 'R', 'R', 'L', 'L'});
-//        bt2.add(new int[]{ 4, 5, 6, 8, 9 }, new char[]{ 'R', 'R', 'L', 'R', 'R'});
-//        bt2.add(new int[]{ 4, 5, 6, 7 }, new char[]{ 'R', 'R', 'R', 'L'});
-//        bt2.printDuplicateSubtrees();
-
-
-//        BinaryTree exTree = new BinaryTree("23+4*");
-//        exTree.printPostOrderExpression();
     }
 
     public static String reverseSubWord(String line){
@@ -206,6 +201,13 @@ public class Test {
             default -> 0;
         };
     }
+
+//    public static String infixToPrefix(String infix) {
+//        StackArray<Character> opStack = new StackArray<>(infix.length()+1);
+//        StringBuilder prefix = new StringBuilder();
+//        infix += '-';
+//
+//    }
 
     public static double evaluatePostfix(String postFix) {
         StackArray<Double> stack = new StackArray<>(postFix.length());
