@@ -21,46 +21,45 @@ public class BinaryTree {
         this.root = new Node(data);
     }
 
-//    /**
-//     * Constructs a binary tree with pre and in orders.
-//     *
-//     * @param preOrder the deque of the preOrder
-//     * @param inOrder the deque of the inOrder
-//     */
-//    public BinaryTree(Deque<Integer> preOrder, Deque<Integer> inOrder) {
-//        this.root = buildTree(preOrder, inOrder);
-//    }
+    /**
+     * Constructs a binary tree from pre-order and in-order traversals.
+     * Time Complexity: O(n^2) in worst case (unbalanced tree)
+     * Space Complexity: O(n) for recursion stack
+     *
+     * @param preOrder the pre-order traversal sequence
+     * @param inOrder the in-order traversal sequence
+     */
+    public BinaryTree(Deque<Integer> preOrder, Deque<Integer> inOrder) {
+        this.root = buildTreeFromPreIn(preOrder, inOrder);
+    }
 
-//    /**
-//     * Constructs a full binary tree with pre and in orders.
-//     *
-//     * @param preOrder the deque of the preOrder
-//     * @param isLeaf the deque of the inOrder
-//     */
-//    public BinaryTree(String preOrder, Queue<Boolean> isLeaf) {
-//    }
+    /**
+     * Constructs a full binary tree with pre and in orders.
+     *
+     * @param preOrder the deque of the preOrder
+     * @param inOrder the deque of the inOrder
+     */
+    private Node buildTreeFromPreIn(Deque<Integer> preOrder, Deque<Integer> inOrder){
+        if (inOrder.isEmpty()) return null;
 
-//    private Node buildTree(Deque<Integer> preOrder, Deque<Integer> inOrder){
-//        if (inOrder.isEmpty()) return null;
-//
-//        Node z = new Node(preOrder.remove());
-//
-//        Deque<Integer> left = new LinkedList<>();
-//        Deque<Integer> right = new LinkedList<>();
-//
-//        while (inOrder.peek() != curNode.data)
-//            left.add(inOrder.remove());
-//
-//        inOrder.remove();
-//
-//        while (!inOrder.isEmpty())
-//            right.add(inOrder.remove());
-//
-//        curNode.lhs = buildTree(preOrder, left);
-//        curNode.rhs = buildTree(preOrder,right);
-//
-//        return curNode;
-//    }
+        Node curNode = new Node(preOrder.remove()); // get the root of the tree from preOrder
+
+        Deque<Integer> left = new LinkedList<>();
+        Deque<Integer> right = new LinkedList<>();
+
+        while (!inOrder.isEmpty() && inOrder.peek() != curNode.data) // get all lhs nodes
+            left.add(inOrder.remove());
+
+        inOrder.remove(); // remove the root from inOrder
+
+        while (!inOrder.isEmpty())      // get all rhs nodes
+            right.add(inOrder.remove());
+
+        curNode.lhs = buildTreeFromPreIn(preOrder, left);
+        curNode.rhs = buildTreeFromPreIn(preOrder,right);
+
+        return curNode;
+    }
 
 //    /**
 //     * Constructs a binary tree from a postfix expression.

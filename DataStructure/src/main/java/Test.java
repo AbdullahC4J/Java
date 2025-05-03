@@ -1,42 +1,38 @@
 import stack.array.StackArray;
-import tree.binary.BinarySearchTree;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 public class Test {
+
     public static void main(String[] args) {
-//        BinarySearchTree bst = new BinarySearchTree(50);
-//        bst.add(20);
-//        bst.add(60);
-//        bst.add(15);
-//        bst.add(45);
-//        bst.add(70);
-//        bst.add(35);
-//        bst.add(47);
-//        bst.add(73);
-//        bst.add(11);
-//        bst.add(17);
-//        System.out.println(bst.inOrderTraverse());
-//        bst.remove(45);
-//        System.out.println(bst.inOrderTraverse());
-//        System.out.println(bst.isBST());
-//        System.out.println(bst.getSuccessor(60));
-
-        int[] arr = {50,20,60,15,45,70,35,73};
-        BinarySearchTree bst1 = new BinarySearchTree(arr);
-        System.out.println(bst1.inOrderTraverse());
-        bst1.remove(50);
-        System.out.println(bst1.inOrderTraverse());
-        System.out.println(bst1.preOrderTraverse());
-        System.out.println(bst1.isBST());
+//        int[] arrHeap = {5, 3, 8, 4, 1, 2, 7};
+//        int[] arr = {2,6,8,14,7,18,13,22,25,30,12,17};
+//        int[] arr = {9,8,7,6,5,4,10,8,3,5,15};
+//        StreamProcessor processor = new StreamProcessor(4);
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add()
 
 
-//        BinarySearchTree bst1 = new BinarySearchTree(20);
-//        bst1.add(22);
-//        bst1.add(8);
-//        bst1.add(12);
-//        bst1.add(4);
-//        bst1.add(14);
-//        bst1.add(10);
-//        System.out.println(bst1.getSuccessor(12));
+
+//        MinHeap heap = new MinHeap(14, arrHeap);
+//        System.out.println(heap);
+
+
+//        System.out.println(heap);
+//        System.out.println(heap.remove());
+//        heap.printLessThan(14);
+//        System.out.println(heap.isHeap(arr));
+//        System.out.println(heap);
+
+//        MaxHeap heap = new MaxHeap(14, arrHeap);
+//
+//        System.out.println(heap);
+//        System.out.println(heap.remove());
+//        System.out.println(heap);
+
+
 
     }
 
