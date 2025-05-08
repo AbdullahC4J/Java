@@ -47,16 +47,16 @@ public class BinaryTree {
         Deque<Integer> left = new LinkedList<>();
         Deque<Integer> right = new LinkedList<>();
 
-        while (!inOrder.isEmpty() && inOrder.peek() != curNode.data) // get all lhs nodes
+        while (!inOrder.isEmpty() && inOrder.peek() != curNode.data) // get all left nodes
             left.add(inOrder.remove());
 
         inOrder.remove(); // remove the root from inOrder
 
-        while (!inOrder.isEmpty())      // get all rhs nodes
+        while (!inOrder.isEmpty())      // get all right nodes
             right.add(inOrder.remove());
 
-        curNode.lhs = buildTreeFromPreIn(preOrder, left);
-        curNode.rhs = buildTreeFromPreIn(preOrder,right);
+        curNode.left = buildTreeFromPreIn(preOrder, left);
+        curNode.right = buildTreeFromPreIn(preOrder,right);
 
         return curNode;
     }
@@ -75,8 +75,8 @@ public class BinaryTree {
 //            Node curNode = new Node(postFix.charAt(i));
 //
 //            if (curNode.data < '0' || curNode.data > '9') {
-//                curNode.rhs = stack.pop();
-//                curNode.lhs = stack.pop();
+//                curNode.right = stack.pop();
+//                curNode.left = stack.pop();
 //            }
 //
 //            stack.push(curNode);
@@ -103,20 +103,20 @@ public class BinaryTree {
         Node curNode = root;
         for (int i = 0; i < data.length; ++i){
             if (directions[i] == 'L'){
-                if (curNode.lhs == null)
-                    curNode.lhs = new Node(data[i]);
-                else if (curNode.lhs.data != data[i])
+                if (curNode.left == null)
+                    curNode.left = new Node(data[i]);
+                else if (curNode.left.data != data[i])
                     throw new AssertionError("Incorrect left value in path");
 
-                curNode = curNode.lhs;
+                curNode = curNode.left;
 
             }else if (directions[i] == 'R'){
-                if (curNode.rhs == null)
-                    curNode.rhs = new Node(data[i]);
-                else if (curNode.rhs.data != data[i])
+                if (curNode.right == null)
+                    curNode.right = new Node(data[i]);
+                else if (curNode.right.data != data[i])
                     throw new AssertionError("Incorrect right value in path");
 
-                curNode = curNode.rhs;
+                curNode = curNode.right;
 
             }else {
                 throw new IllegalArgumentException("Invalid direction: " + directions[i]);
@@ -211,11 +211,11 @@ public class BinaryTree {
                 Node curNode = queue.remove();
                 System.out.print(curNode.data + " ");
 
-                if (curNode.lhs != null)
-                    queue.add(curNode.lhs);
+                if (curNode.left != null)
+                    queue.add(curNode.left);
 
-                if (curNode.rhs != null)
-                    queue.add(curNode.rhs);
+                if (curNode.right != null)
+                    queue.add(curNode.right);
 
             }
             ++level;
@@ -238,21 +238,21 @@ public class BinaryTree {
                     curNode = deque.removeFirst();
                     System.out.print(curNode.data + " ");
 
-                    if (curNode.lhs != null)
-                        deque.addLast(curNode.lhs);// left added first here
+                    if (curNode.left != null)
+                        deque.addLast(curNode.left);// left added first here
 
-                    if (curNode.rhs != null)
-                        deque.addLast(curNode.rhs);
+                    if (curNode.right != null)
+                        deque.addLast(curNode.right);
 
                 }else {
                     curNode = deque.removeLast();
                     System.out.print(curNode.data + " ");
 
-                    if (curNode.rhs != null)
-                        deque.addFirst(curNode.rhs);// right added first here
+                    if (curNode.right != null)
+                        deque.addFirst(curNode.right);// right added first here
 
-                    if (curNode.lhs != null)
-                        deque.addFirst(curNode.lhs);
+                    if (curNode.left != null)
+                        deque.addFirst(curNode.left);
                 }
             }
             fwdLvl = !fwdLvl;
@@ -276,29 +276,28 @@ public class BinaryTree {
     public boolean isComplete(){
         Queue<Node> queue = new LinkedList<>();
         queue.add(root);
+        boolean isLeafLevel = false;
 
         while (!queue.isEmpty()){
             int size = queue.size();
 
-            boolean isLeafLevel = false;
-
             while (size-- > 0){
                 Node curNode = queue.remove();
 
-                if (curNode.lhs != null){
+                if (curNode.left != null){
                     if (isLeafLevel)
                         return false;
 
-                    queue.add(curNode.lhs);
+                    queue.add(curNode.left);
                 }else {
                     isLeafLevel = true;
                 }
 
-                if (curNode.rhs != null){
+                if (curNode.right != null){
                     if (isLeafLevel)
                         return false;
 
-                    queue.add(curNode.rhs);
+                    queue.add(curNode.right);
                 }else {
                     isLeafLevel = true;
                 }
@@ -393,7 +392,7 @@ public class BinaryTree {
         if (root == null)
             return false;
 
-        return isMirror(root.lhs, root.rhs);
+        return isMirror(root.left, root.right);
     }
 
     /**
@@ -446,9 +445,9 @@ public class BinaryTree {
         if (curNode == null)
             return 0;
 
-        int curDia = getHeight(curNode.lhs) + getHeight(curNode.rhs) + 2; //the 2 for left and right edges connected the children
+        int curDia = getHeight(curNode.left) + getHeight(curNode.right) + 2; //the 2 for left and right edges connected the children
 
-        return Math.max(curDia, Math.max(getDiameter(curNode.lhs) , getDiameter(curNode.rhs)));
+        return Math.max(curDia, Math.max(getDiameter(curNode.left) , getDiameter(curNode.right)));
     }
 
     /**
@@ -463,10 +462,10 @@ public class BinaryTree {
 
         System.out.print(curNode.data + " ");
 
-        if (curNode.rhs != null)
-            printRightBoundary(curNode.rhs);
-        else if (curNode.lhs != null)
-            printRightBoundary(curNode.lhs);
+        if (curNode.right != null)
+            printRightBoundary(curNode.right);
+        else if (curNode.left != null)
+            printRightBoundary(curNode.left);
     }
 
     /**
@@ -481,10 +480,10 @@ public class BinaryTree {
 
         System.out.print(curNode.data + " ");
 
-        if (curNode.lhs != null)
-            printLeftBoundary(curNode.lhs);
-        else if (curNode.rhs != null)
-            printLeftBoundary(curNode.rhs);
+        if (curNode.left != null)
+            printLeftBoundary(curNode.left);
+        else if (curNode.right != null)
+            printLeftBoundary(curNode.right);
     }
 
     /**
@@ -498,11 +497,11 @@ public class BinaryTree {
         if (curNode == null)
             return;
 
-        clearChildren(curNode.lhs);
-        clearChildren(curNode.rhs);
+        clearChildren(curNode.left);
+        clearChildren(curNode.right);
 
-        curNode.lhs = null;
-        curNode.rhs = null;
+        curNode.left = null;
+        curNode.right = null;
     }
 
     /**
@@ -522,10 +521,10 @@ public class BinaryTree {
         if (isLeaf(curNode)) // leaf
             return h == 0;
 
-        if (curNode.lhs == null || curNode.rhs == null) // have one child
+        if (curNode.left == null || curNode.right == null) // have one child
             return false;
 
-        return isPerfect(curNode.lhs, h - 1) && isPerfect(curNode.rhs, h - 1);
+        return isPerfect(curNode.left, h - 1) && isPerfect(curNode.right, h - 1);
     }
 
     /**
@@ -545,7 +544,7 @@ public class BinaryTree {
         if (curNode.data == value)
             return true;
 
-        return contains(curNode.lhs, value) || contains(curNode.rhs, value);
+        return contains(curNode.left, value) || contains(curNode.right, value);
     }
 
     /**
@@ -562,11 +561,11 @@ public class BinaryTree {
 
         int result = 0;
 
-        if (curNode.lhs != null)
-            result += countLeaves(curNode.lhs);
+        if (curNode.left != null)
+            result += countLeaves(curNode.left);
 
-        if(curNode.rhs != null)
-            result += countLeaves(curNode.rhs);
+        if(curNode.right != null)
+            result += countLeaves(curNode.right);
 
         return result;
     }
@@ -583,7 +582,7 @@ public class BinaryTree {
         if (curNode == null)
             return 0;
 
-        return 1 + countNodes(curNode.lhs) + countNodes(curNode.rhs);
+        return 1 + countNodes(curNode.left) + countNodes(curNode.right);
     }
 
     /**
@@ -598,7 +597,7 @@ public class BinaryTree {
         if (curNode == null)
             return -1;
 
-        return 1 + Math.max(getHeight(curNode.lhs),getHeight(curNode.rhs));
+        return 1 + Math.max(getHeight(curNode.left),getHeight(curNode.right));
     }
 
     /**
@@ -612,7 +611,7 @@ public class BinaryTree {
     private int getMin(Node curNode){
         if(curNode == null)
             return Integer.MAX_VALUE;
-        return Math.min(Math.min(getMin(curNode.rhs), getMin(curNode.lhs)), curNode.data);
+        return Math.min(Math.min(getMin(curNode.right), getMin(curNode.left)), curNode.data);
     }
 
     /**
@@ -626,7 +625,7 @@ public class BinaryTree {
     private int getMax(Node curNode){
         if(curNode == null)
             return Integer.MIN_VALUE;
-        return Math.max(Math.max(getMax(curNode.rhs), getMax(curNode.lhs)), curNode.data);
+        return Math.max(Math.max(getMax(curNode.right), getMax(curNode.left)), curNode.data);
     }
 
     /**
@@ -640,8 +639,8 @@ public class BinaryTree {
         if (curNode == null)
             return;
 
-        printPostOrder(curNode.lhs);
-        printPostOrder(curNode.rhs);
+        printPostOrder(curNode.left);
+        printPostOrder(curNode.right);
         System.out.print(curNode.data + " ");
     }
 
@@ -654,8 +653,8 @@ public class BinaryTree {
 //        if (curNode == null)
 //            return;
 //
-//        printPostOrderExpression(curNode.lhs);
-//        printPostOrderExpression(curNode.rhs);
+//        printPostOrderExpression(curNode.left);
+//        printPostOrderExpression(curNode.right);
 //        System.out.print((char)curNode.data + " ");
 //    }
 
@@ -670,8 +669,8 @@ public class BinaryTree {
         if (curNode == null)
             return;
         System.out.print(curNode.data + " ");
-        printPreOrder(curNode.lhs);
-        printPreOrder(curNode.rhs);
+        printPreOrder(curNode.left);
+        printPreOrder(curNode.right);
     }
 
     /**
@@ -684,13 +683,13 @@ public class BinaryTree {
     private void printPreOrderComplete(Node curNode){
         System.out.print(curNode.data + " ");
 
-        if (curNode.lhs != null)
-            printPreOrderComplete(curNode.lhs);
+        if (curNode.left != null)
+            printPreOrderComplete(curNode.left);
         else
             System.out.print("null ");
 
-        if (curNode.rhs != null)
-            printPreOrderComplete(curNode.rhs);
+        if (curNode.right != null)
+            printPreOrderComplete(curNode.right);
         else
             System.out.print("null ");
     }
@@ -705,9 +704,9 @@ public class BinaryTree {
     private void printInOrder(Node curNode){ //LVR -> Depth-First
         if (curNode == null)
             return;
-        printInOrder(curNode.lhs);
+        printInOrder(curNode.left);
         System.out.print(curNode.data + " ");
-        printInOrder(curNode.rhs);
+        printInOrder(curNode.right);
 
 /*  Printing Inorder Iteratively
         if (curNode == null)
@@ -717,13 +716,13 @@ public class BinaryTree {
         while (true){
             if (curNode != null){
                 stack.push(curNode);
-                curNode = curNode.lhs;
+                curNode = curNode.left;
             }else{
                 if (stack.isEmpty()) break;
 
                 curNode = stack.pop();
                 System.out.print(curNode.data + " ");
-                curNode = curNode.rhs;
+                curNode = curNode.right;
             }
         }
     */
@@ -732,12 +731,12 @@ public class BinaryTree {
     private void printDuplicateSubtrees(Node curNode){
 //        if (curNode == null) return;
 //
-//        String leftCanonical = toCanonicalParenthesisString(curNode.lhs);
-//        String rightCanonical = toCanonicalParenthesisString(curNode.rhs);
+//        String leftCanonical = toCanonicalParenthesisString(curNode.left);
+//        String rightCanonical = toCanonicalParenthesisString(curNode.right);
 //
 //        if(leftCanonical.equals(rightCanonical)){
 //            StringBuilder sb = new StringBuilder();
-//            toParenthesizedString(curNode.lhs, sb);
+//            toParenthesizedString(curNode.left, sb);
 //            System.out.println(sb.toString());
 //        }
     }
@@ -747,24 +746,24 @@ public class BinaryTree {
 
         str.append(curNode.data);
 
-        if (curNode.lhs != null || curNode.rhs != null) {
+        if (curNode.left != null || curNode.right != null) {
             str.append("(");
-            toParenthesizedString(curNode.lhs, str);
+            toParenthesizedString(curNode.left, str);
             str.append(")");
         }
 
-        if (curNode.rhs != null) {
+        if (curNode.right != null) {
             str.append("(");
-            toParenthesizedString(curNode.rhs, str);
+            toParenthesizedString(curNode.right, str);
             str.append(")");
         }
         // The assignment but not logical to print empty parentheses
 //        str.append(curNode.data);
 //        str.append("(");
-//        toParenthesizedString(curNode.lhs, str);
+//        toParenthesizedString(curNode.left, str);
 //        str.append(")");
 //        str.append("(");
-//        toParenthesizedString(curNode.rhs, str);
+//        toParenthesizedString(curNode.right, str);
 //        str.append(")");
 
     }
@@ -774,8 +773,8 @@ public class BinaryTree {
             return "()";
         }
 
-        String leftStr = toCanonicalParenthesisString(curNode.lhs);
-        String rightStr = toCanonicalParenthesisString(curNode.rhs);
+        String leftStr = toCanonicalParenthesisString(curNode.left);
+        String rightStr = toCanonicalParenthesisString(curNode.right);
 
         String[] subTrees= {leftStr, rightStr};
         Arrays.sort(subTrees);
@@ -791,7 +790,7 @@ public class BinaryTree {
      * @return true if the node is a leaf, false otherwise
      */
     private boolean isLeaf(Node curNode){
-        return curNode.lhs == null && curNode.rhs == null;
+        return curNode.left == null && curNode.right == null;
     }
 
     private boolean isMirror(Node firstTree, Node secondTree){
@@ -801,7 +800,7 @@ public class BinaryTree {
         if (firstTree == null || secondTree == null || firstTree.data != secondTree.data)
             return false;
 
-        return isMirror(firstTree.lhs, secondTree.rhs) && isMirror(firstTree.rhs, secondTree.lhs);
+        return isMirror(firstTree.left, secondTree.right) && isMirror(firstTree.right, secondTree.left);
     }
 
     private boolean isFlipEquivalent(Node firstTree, Node secondTree){
@@ -811,8 +810,8 @@ public class BinaryTree {
         if (firstTree == null || secondTree == null || firstTree.data != secondTree.data)
             return false;
 
-        return (isFlipEquivalent(firstTree.lhs, secondTree.lhs) || isFlipEquivalent(firstTree.lhs, secondTree.rhs) )
-                && (isFlipEquivalent(firstTree.rhs, secondTree.rhs) || isFlipEquivalent(firstTree.rhs, secondTree.lhs));
+        return (isFlipEquivalent(firstTree.left, secondTree.left) || isFlipEquivalent(firstTree.left, secondTree.right) )
+                && (isFlipEquivalent(firstTree.right, secondTree.right) || isFlipEquivalent(firstTree.right, secondTree.left));
     }
 
     /**
@@ -823,9 +822,9 @@ public class BinaryTree {
         /** The value stored in this node */
         int data;
         /** Reference to the left child */
-        Node lhs;
+        Node left;
         /** Reference to the right child */
-        Node rhs;
+        Node right;
 
         /**
          * Constructs a node with the specified value.

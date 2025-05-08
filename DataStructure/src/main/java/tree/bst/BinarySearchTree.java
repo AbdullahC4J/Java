@@ -61,7 +61,10 @@ public class BinarySearchTree {
      * @param data the value to be added
      */
     public void add(int data){
-        insert(root,data);
+        if (root == null)
+            root = new Node(data);
+        else
+            insert(root,data);
     }
 
     /**
@@ -183,18 +186,18 @@ public class BinarySearchTree {
     }
 
 
-//    private Node toBST(int[] preOrder, int start, int end){ // The idea is to split and assign all the lhs and rhs of each node.
+//    private Node toBST(int[] preOrder, int start, int end){ // The idea is to split and assign all the left and right of each node.
 //        Node curNode = new Node(preOrder[start]);
 //
 //        for(int i = start + 1; i <= end + 1; ++i){ // could be replaced with nextGreaterPosition().
 //
 //            if (i == end + 1|| curNode.data < preOrder[i]){ // reached to last element no greater || get greater than the node.
 //
-//                if (start + 1 <= i - 1) // all previous of the i (splitter) is lhs.
-//                    curNode.lhs = toBST(preOrder, start + 1, i - 1);
+//                if (start + 1 <= i - 1) // all previous of the i (splitter) is left.
+//                    curNode.left = toBST(preOrder, start + 1, i - 1);
 //
-//                if (i <= end) // all after the i (splitter) is rhs
-//                    curNode.rhs = toBST(preOrder, i, end);
+//                if (i <= end) // all after the i (splitter) is right
+//                    curNode.right = toBST(preOrder, i, end);
 //
 //                break; // break for curNode all rest after greater is not belong to it
 //            }
@@ -297,10 +300,10 @@ public class BinarySearchTree {
             return null;
 
         if (curNode.data > firstVal && curNode.data > secVal)
-            return lowestCommonAncestor(curNode.lhs, firstVal, secVal);
+            return lowestCommonAncestor(curNode.left, firstVal, secVal);
 
         if (curNode.data < firstVal && curNode.data < secVal)
-            return lowestCommonAncestor(curNode.rhs, firstVal, secVal);
+            return lowestCommonAncestor(curNode.right, firstVal, secVal);
 
         return curNode;
     }
@@ -321,8 +324,8 @@ public class BinarySearchTree {
 
         int mid = (start + end)/2;
         Node curNode = new Node(arr[mid]);
-        curNode.lhs = toBalanced(arr, start, mid-1);
-        curNode.rhs = toBalanced(arr,mid + 1, end);
+        curNode.left = toBalanced(arr, start, mid-1);
+        curNode.right = toBalanced(arr,mid + 1, end);
 
         return curNode;
     }
@@ -344,10 +347,10 @@ public class BinarySearchTree {
         if (curNode == null)
             return true;
 
-        if(curNode.data <= min || curNode.data >= max) // Must check if all the lhs is smaller, and rhs is greater than the root.
+        if(curNode.data <= min || curNode.data >= max) // Must check if all the left is smaller, and right is greater than the root.
             return false;
 
-        return isBST(curNode.lhs, min, curNode.data) && isBST(curNode.rhs, curNode.data, max);
+        return isBST(curNode.left, min, curNode.data) && isBST(curNode.right, curNode.data, max);
     }
 
     /**
@@ -359,8 +362,8 @@ public class BinarySearchTree {
      * @return the node with the maximum value
      */
     private Node getMax(Node curNode){
-        while (curNode.rhs != null)
-            curNode = curNode.rhs;
+        while (curNode.right != null)
+            curNode = curNode.right;
 
         return curNode;
     }
@@ -374,8 +377,8 @@ public class BinarySearchTree {
      * @return the node with the minimum value
      */
     private Node getMin(Node curNode){
-        while (curNode.lhs != null)
-            curNode = curNode.lhs;
+        while (curNode.left != null)
+            curNode = curNode.left;
 
         return curNode;
     }
@@ -396,9 +399,9 @@ public class BinarySearchTree {
         while (curNode != null){
             if (data < curNode.data){
                 successor = curNode; // In case the required node is the greatest in the left subtree
-                curNode = curNode.lhs;
+                curNode = curNode.left;
             }else if (data > curNode.data){
-                curNode = curNode.rhs;
+                curNode = curNode.right;
             }else {
                 break;
             }
@@ -407,9 +410,9 @@ public class BinarySearchTree {
         if (curNode == null)
             return null; //Node not found
 
-        // in case the node with passed data has rhs so the successor will be the most right value.
-        if (curNode.rhs != null)
-            return getMin(curNode.rhs);
+        // in case the node with passed data has right so the successor will be the most right value.
+        if (curNode.right != null)
+            return getMin(curNode.right);
 
         return successor;
     }
@@ -418,9 +421,9 @@ public class BinarySearchTree {
             // find the node with passed data
         while (curNode != null){
             if (data < curNode.data){
-                curNode = curNode.lhs;
+                curNode = curNode.left;
             }else if (data > curNode.data){
-                curNode = curNode.rhs;
+                curNode = curNode.right;
             }else {
                 break;
             }
@@ -429,9 +432,9 @@ public class BinarySearchTree {
         if (curNode == null)
             return null; //Node not found
 
-        // in case the node with passed data has rhs so the successor will be the most right value.
-        if (curNode.rhs != null)
-            return getMin(curNode.rhs);
+        // in case the node with passed data has right so the successor will be the most right value.
+        if (curNode.right != null)
+            return getMin(curNode.right);
 
         while (curNode.parent.data < curNode.data)
             curNode = curNode.parent;
@@ -451,9 +454,9 @@ public class BinarySearchTree {
     private boolean contains(Node curNode, int data){
         while (curNode != null){
             if (curNode.data > data)
-                curNode = curNode.lhs;
+                curNode = curNode.left;
             else if (curNode.data < data)
-                curNode = curNode.rhs;
+                curNode = curNode.right;
             else
                 return true;
         }
@@ -465,11 +468,11 @@ public class BinarySearchTree {
         if (data == curNode.data)
             return true;
 
-        if (curNode.rhs != null && data > curNode.data)
-            return contains(curNode.rhs,data);
+        if (curNode.right != null && data > curNode.data)
+            return contains(curNode.right,data);
 
-        if (curNode.lhs != null && data < curNode.data)
-            return contains(curNode.lhs,data);
+        if (curNode.left != null && data < curNode.data)
+            return contains(curNode.left,data);
 
         return false;*/
     }
@@ -486,9 +489,9 @@ public class BinarySearchTree {
         if (curNode == null)
             return;
 
-        inOrderTraverse(curNode.lhs, arr);
+        inOrderTraverse(curNode.left, arr);
         arr.add(curNode.data);
-        inOrderTraverse(curNode.rhs, arr);
+        inOrderTraverse(curNode.right, arr);
     }
 
     /**
@@ -504,8 +507,8 @@ public class BinarySearchTree {
             return;
 
         arr.add(curNode.data);
-        preOrderTraverse(curNode.lhs, arr);
-        preOrderTraverse(curNode.rhs, arr);
+        preOrderTraverse(curNode.left, arr);
+        preOrderTraverse(curNode.right, arr);
     }
 
     /**
@@ -522,22 +525,22 @@ public class BinarySearchTree {
             return null;
 
         if (curNode.data < target){
-            curNode.rhs = remove(curNode.rhs, target);
+            curNode.right = remove(curNode.right, target);
         }else if (curNode.data > target){
-            curNode.lhs = remove(curNode.lhs, target);
+            curNode.left = remove(curNode.left, target);
         } else { //Node found
 
             // case have one child or leaf (return null in case of leaf)
-            if (curNode.rhs == null)
-                return curNode.lhs;
+            if (curNode.right == null)
+                return curNode.left;
 
-            if (curNode.lhs == null)
-                return curNode.rhs;
+            if (curNode.left == null)
+                return curNode.right;
 
             //case have two children (replace the node with its successor, then remove that successor node)
-            Node successorNode = getMin(curNode.rhs);
+            Node successorNode = getMin(curNode.right);
             curNode.data = successorNode.data;
-            curNode.rhs = remove(curNode.rhs, successorNode.data);
+            curNode.right = remove(curNode.right, successorNode.data);
         }
 
         return curNode;
@@ -553,16 +556,16 @@ public class BinarySearchTree {
      */
     private void insert(Node curNode, int data){
         if (data > curNode.data){
-            if (curNode.rhs == null)
-                curNode.rhs = new Node(data,curNode); // curNode as parent
+            if (curNode.right == null)
+                curNode.right = new Node(data,curNode); // curNode as parent
             else
-                insert(curNode.rhs, data);
+                insert(curNode.right, data);
 
-        }else if ((data < curNode.data)){
-            if (curNode.lhs == null)
-                curNode.lhs = new Node(data,curNode);
+        }else if (data < curNode.data){
+            if (curNode.left == null)
+                curNode.left = new Node(data,curNode);
             else
-                insert(curNode.lhs, data);
+                insert(curNode.left, data);
         }else {
             //Already in the tree
             return;
@@ -574,9 +577,9 @@ public class BinarySearchTree {
         /** Reference to the parent */
         Node parent;
         /** Reference to the left child */
-        Node lhs;
+        Node left;
         /** Reference to the right child */
-        Node rhs;
+        Node right;
 
         /**
          * Constructs a node with the specified value.

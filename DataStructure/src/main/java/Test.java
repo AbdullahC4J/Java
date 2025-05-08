@@ -1,38 +1,8 @@
 import stack.array.StackArray;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 
 public class Test {
-
     public static void main(String[] args) {
-//        int[] arrHeap = {5, 3, 8, 4, 1, 2, 7};
-//        int[] arr = {2,6,8,14,7,18,13,22,25,30,12,17};
-//        int[] arr = {9,8,7,6,5,4,10,8,3,5,15};
-//        StreamProcessor processor = new StreamProcessor(4);
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add()
-
-
-
-//        MinHeap heap = new MinHeap(14, arrHeap);
-//        System.out.println(heap);
-
-
-//        System.out.println(heap);
-//        System.out.println(heap.remove());
-//        heap.printLessThan(14);
-//        System.out.println(heap.isHeap(arr));
-//        System.out.println(heap);
-
-//        MaxHeap heap = new MaxHeap(14, arrHeap);
-//
-//        System.out.println(heap);
-//        System.out.println(heap.remove());
-//        System.out.println(heap);
-
-
 
     }
 
