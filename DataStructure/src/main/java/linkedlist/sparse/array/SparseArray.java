@@ -50,7 +50,7 @@ public class SparseArray {
      * @throws NullPointerException If the index node cannot be created
      */
     public void setValue(int data, int index){
-       Objects.requireNonNull(getIndex(index, true)).data = data;
+       Objects.requireNonNull(getIndex(index, true)).data = data; // Ensures the returned node is not null
     }
 
     /**

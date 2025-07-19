@@ -207,7 +207,8 @@ public class MinHeap {
         }
     }
 
-    // Using floyed algorithm heapifyDown from last parent (non-leaf) node will reduce complexity of creation from O(n log n) to O(n)
+    // Using floyed algorithm heapifyDown from last parent (non-leaf) node will reduce complexity of creation from O(n log n) to O(n).
+    // heapifyDown leaves will not make any change so we optimize the process by only heapifyDown the non-leaves.
     private void heapify(){
         for (int i = parent(size - 1); i >= 0; --i) // Start from the last non-leaf node (parent of last element)
             heapifyDown(i);

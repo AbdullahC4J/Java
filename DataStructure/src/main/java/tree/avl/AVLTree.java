@@ -5,14 +5,11 @@ import java.util.Queue;
 
 /**
  * An implementation of an AVL (Adelson-Velsky and Landis) tree.
- * AVL tree is a self-balancing binary search tree where the heights of the left and right subtrees
- * of any node differ by at most one.
- * 
+ * AVL tree is a self-balancing binary search tree where the heights of the left and right subtrees of any node differ by at most one.
  * Time Complexity for main operations:
  * - Insertion: O(log n)
  * - Deletion: O(log n)
  * - Search: O(log n)
- * 
  * Space Complexity: O(n) where n is the number of nodes in the tree
  */
 public class AVLTree {
@@ -234,6 +231,7 @@ public class AVLTree {
             curNode.right = remove(curNode.right, successorNode.data);
         }
 
+        // Recursively traverse back up the insertion path to update heights and re-balance.
         updateHeight(curNode);
         return balance(curNode);
     }
@@ -261,6 +259,7 @@ public class AVLTree {
                 curNode.left = insert(curNode.left, data); //due to balancing it my return a complete different node.
         }
 
+        // Recursively traverse back up the insertion path to update heights and re-balance.
         updateHeight(curNode);
         return balance(curNode);
     }

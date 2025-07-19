@@ -1,0 +1,20 @@
+
+
+
+
+
+
+================================================================================================================================
+-> TREEs
+
+1) BST
+	- while it's possible to store a BST in an array as Heaps we don't do that regarding to the objective of BST over the Heap.
+  	the BST is an arbitrary (can be unbalanced), frequently modify structure insertions/deletions cause rebalancing so 
+  	BSTs need dynamic memory (pointers) for efficient rebalancing. unlike the Heap always a complete binary tree, Only
+  	care about root access, so no pointers needed.
+
+
+2) Heap
+ 	- Using floyed algorithm heapifyDown from last parent (non-leaf) node will reduce complexity of construction a heap from O(n log n) to O(n) as
+    	  heapifyDown leaves will not make any change so we optimize the process by only heapifyDown the non-leaves.
+================================================================================================================================

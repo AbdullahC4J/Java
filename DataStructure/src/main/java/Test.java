@@ -1,9 +1,42 @@
+import Hash.HashTableChaining;
 import stack.array.StackArray;
+
+import java.util.Stack;
 
 
 public class Test {
     public static void main(String[] args) {
 
+        HashTableChaining contact = new HashTableChaining();
+        contact.addNum("Abdullah", "01140541248");
+        contact.addNum("Mom", "01115079524");
+        contact.addNum("Dad", "01125242600");
+
+        System.out.println(contact.getNum("Abdullah"));
+        contact.removeNum("Abdullah");
+        System.out.println(contact.getNum("Abdullah"));
+        System.out.println(contact.getNum("Dad"));
+        System.out.println(contact.getNum("dad"));
+        contact.printAllNums();
+        contact.printTableStats();
+
+
+//        Trie trie = new Trie();
+//        trie.insert("a");
+//        trie.insert("ab");
+//        trie.insert("abcd");
+//        trie.insert("bcd");
+//        trie.insert("xyz");
+//        trie.insert("xyzw");
+//        trie.insert("xyzww");
+//
+//        List<String> listOfWords = new ArrayList<>();
+//        trie.getAll(listOfWords);
+//        System.out.println(listOfWords);
+//
+//        listOfWords = new ArrayList<>();
+//        trie.autoComplete("x",listOfWords);
+//        System.out.println(listOfWords);
     }
 
     public static String reverseSubWord(String line){
@@ -118,7 +151,9 @@ public class Test {
         return stack.pop();
     }
 
+    //Monotonic Stack
     public static int[] nextGreaterPosition(int[] vals){
+        Stack<Integer> stack = new Stack<>();
         StackArray<Integer> index = new StackArray<>(vals.length);
         int[] res = new int[vals.length];
 

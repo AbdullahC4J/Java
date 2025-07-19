@@ -744,6 +744,27 @@ public class SingleLinkedList<E> {
         verifyIntegrity();
     }
 
+    /*
+    Floyd's cycle finding algorithm or Hare-Tortoise algorithm It uses two pointers one moving twice as fast and
+     the other moving one as slow. if the Fast pointer reach the end (NULL) there is no loop in the linked list.
+     if the Fast pointer again catches the slow pointer at some time therefore a loop exists in the linked list.
+    * */
+    public boolean isCircularLinkedList(){
+        if (first == null) return false;
+
+        Node<E> slowPtr = first;
+        Node<E> fastPtr = first;
+
+        while (fastPtr != null && fastPtr.next != null){
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+
+            if (fastPtr == slowPtr)
+                return true; // Cycle detected
+        }
+        return false; // Reached end (no cycle)
+    }
+
     public void arrangeOddPosFirst(){
         if (first == null || last == null || last == first ) return;
 
